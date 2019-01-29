@@ -27,7 +27,7 @@ class BaseNavbar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {isEmpty(this.props.user) ?
+              {isEmpty(this.props.user.data) ?
                 <NavItem>
                   <NavLink tag={Link} to={"/register"}>Register</NavLink>
                 </NavItem>
@@ -36,7 +36,7 @@ class BaseNavbar extends React.Component {
                   <NavLink tag={Link} to={"/"} onClick={this.props.logout}>Logout</NavLink>
                 </NavItem>
               }
-              {isEmpty(this.props.user) ?
+              {isEmpty(this.props.user.data) ?
                 <NavItem>
                   <NavLink tag={Link} to={"/login"}>Login</NavLink>
                 </NavItem> : ''

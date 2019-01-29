@@ -3,6 +3,8 @@ import {Container, Row, Col, FormGroup, Label, Input, Button, Form} from "reacts
 import BaseNavbar from "../components/navbar/navbar";
 import {loginAction} from "../actions/action_user";
 import {connect} from "react-redux";
+import {isEmpty} from "lodash";
+import './auth.scss';
 
 class Login extends Component {
   constructor(props) {
@@ -11,7 +13,6 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      errors: ''
     }
   }
 
@@ -21,7 +22,8 @@ class Login extends Component {
     });
   };
 
-  submit = () => {
+  submit = (e) => {
+    e.preventDefault();
     var payload = {
       "email": this.state.email,
       "password": this.state.password
@@ -30,6 +32,7 @@ class Login extends Component {
   };
 
   render() {
+    const error = this.props.user.error;
     return (
       <div>
         <BaseNavbar/>
@@ -37,11 +40,12 @@ class Login extends Component {
           <Row>
             <Col>
               <h3 className={'text-center'}>Sign In</h3>
-              <Form className="form">
+              <Form className="form" onSubmit={this.submit}>
                 <FormGroup>
                   <Label>Email</Label>
                   <Input type="email" name="email" id="email"
                          value={this.state.email} onChange={this.handleChange} placeholder="myemail@email.com"
+                         required
                   />
                 </FormGroup>
 
@@ -49,13 +53,14 @@ class Login extends Component {
                   <Label>Password</Label>
                   <Input type="password" name="password" id="password"
                          value={this.state.password} onChange={this.handleChange} placeholder="Enter Password"
+                         required
                   />
                 </FormGroup>
                 <div className={'text-center'}>
                   <div className="login-error">
-                    {this.state.errors}
+                    {!isEmpty(error) ? error.data.message : ''}
                   </div>
-                  <Button color="primary" onClick={this.submit}>Submit</Button>
+                  <Button color="primary">Submit</Button>
                 </div>
               </Form>
             </Col>

@@ -12,7 +12,7 @@ export default function dataReducer (state = initialState, action) {
       localStorage.setItem('user', JSON.stringify(action.payload));
       return {...state, data: action.payload, error: {}};
     case LOGIN_FAILURE:
-      return {...state, data: {}, error: action.payload};
+      return {...state, data: {}, error: action.payload.response};
     case LOGOUT:
       localStorage.removeItem('user');
       return {...state, data: {}, error: {}};
