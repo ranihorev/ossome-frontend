@@ -1,10 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import './index.scss';
 import * as serviceWorker from './serviceWorker';
+import {Provider} from "react-redux";
+import {applyMiddleware, createStore} from "redux";
+import rootReducer from "./reducers";
+import thunk from "redux-thunk";
+import {LOGIN_SUCCESS} from "./actions/action_user";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(rootReducer, applyMiddleware(thunk));
+
+const user = localStorage.getItem('user');
+
+if(user) {
+  store.dispatch({ type: LOGIN_SUCCESS, payload: JSON.parse(user) });
+}
+
+ReactDOM.render(
+  <Provider store={store}>
+      <App />
+  </Provider>,
+  document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

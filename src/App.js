@@ -1,26 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import {connectedRouterRedirect} from "redux-auth-wrapper/history4/redirect";
+import {isEmpty} from 'lodash';
+import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
+
+const locationHelper = locationHelperBuilder({});
+
+const userIsAuthenticated = connectedRouterRedirect({
+  redirectPath: '/login',
+  authenticatedSelector: state => !isEmpty(state.user.data),
+  wrapperDisplayName: 'UserIsAuthenticated'
+});
+
+const userIsNotAuthenticated = connectedRouterRedirect({
+  redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',
+  allowRedirectBack: false,
+  authenticatedSelector: state => isEmpty(state.user.data),
+  wrapperDisplayName: 'UserIsNotAuthenticated'
+})
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/" exact component={userIsAuthenticated(Home)} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={userIsNotAuthenticated(Login)} />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
     );
   }
 }
