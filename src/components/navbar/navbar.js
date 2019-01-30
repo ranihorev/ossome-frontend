@@ -1,7 +1,7 @@
 import React from 'react';
 import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem, NavLink} from 'reactstrap';
 import {Link} from "react-router-dom";
-import {loginAction, logoutAction} from "../../actions/action_user";
+import {logoutAction} from "../../actions/action_user";
 import {connect} from "react-redux";
 import {isEmpty} from "lodash";
 
