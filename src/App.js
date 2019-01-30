@@ -31,7 +31,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route path="/" exact component={userIsAuthenticated(Home)} />
-          <Route path="/register" component={Register} />
+          <Route path="/register" component={userIsNotAuthenticated(Register)} />
           <Route path="/login" component={userIsNotAuthenticated(Login)} />
           <Route component={NotFound} />
         </Switch>

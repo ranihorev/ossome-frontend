@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Container, Row, Col, FormGroup, Label, Input, Button, Form} from "reactstrap";
 import BaseNavbar from "../components/navbar/navbar";
-import {loginAction} from "../actions/action_user";
+import {loginRegisterAction} from "../actions/action_user";
 import {connect} from "react-redux";
 import {isEmpty} from "lodash";
 import './auth.scss';
@@ -24,11 +24,7 @@ class Login extends Component {
 
   submit = (e) => {
     e.preventDefault();
-    var payload = {
-      "email": this.state.email,
-      "password": this.state.password
-    }
-    this.props.login(payload);
+    this.props.login(this.state);
   };
 
   render() {
@@ -81,7 +77,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     login: (data) => {
-      dispatch(loginAction(data))
+      dispatch(loginRegisterAction(data, 'login'))
     },
   }
 }

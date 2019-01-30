@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {Container, Row, Col, FormGroup, Label, Input, Button, Form} from "reactstrap";
 import BaseNavbar from "../components/navbar/navbar";
 import {connect} from "react-redux";
-import {loginAction} from "../actions/action_user";
+import {loginRegisterAction} from "../actions/action_user";
 import {isEmpty} from "lodash";
+import {withRouter} from "react-router";
 
 class Register extends Component {
   constructor(props) {
@@ -23,9 +24,10 @@ class Register extends Component {
     });
   }
 
-  submit = () => {
-
-  }
+  submit = (e) => {
+    e.preventDefault();
+    this.props.register(this.state);
+  };
 
   render() {
     const error = this.props.user.error;
@@ -35,8 +37,8 @@ class Register extends Component {
         <Container className="base-container">
           <Row>
             <Col>
-              <h3 className={'text-center'}>Sign In</h3>
-              <Form className="form">
+              <h3 className={'text-center'}>Register</h3>
+              <Form className="form" onSubmit={this.submit}>
                 <FormGroup>
                   <Label>First Name</Label>
                   <Input type="text" name="first_name" id="first_name"
@@ -89,10 +91,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    login: (data) => {
-      dispatch(loginAction(data))
+    register: (data) => {
+      dispatch(loginRegisterAction(data, 'register'))
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Register);
+export default connect(mapStateToProps, mapDispatchToProps) (withRouter(Register));
