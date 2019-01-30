@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import {FormGroup, Input, Button, Form} from "reactstrap";
 import {auth_axios} from "../../api";
+import LocationField from "./Location/LocationField";
 
 class NewPost extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      text: ''
+      text: '',
+      location: ''
     }
   }
 
@@ -26,6 +28,10 @@ class NewPost extends Component {
     })
   };
 
+  // autocomplete_location = (event) => {
+  //   event.target.value
+  // }
+
   render() {
     return (
       <Form className="form" onSubmit={this.submit}>
@@ -36,7 +42,10 @@ class NewPost extends Component {
                  required
           />
         </FormGroup>
-
+       <LocationField/>
+        <div>
+          <i className="fal fa-map-marker-alt"></i>
+        </div>
         <div className={'text-center'}>
 
           <Button color="primary">Submit</Button>
