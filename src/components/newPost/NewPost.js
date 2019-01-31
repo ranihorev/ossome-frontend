@@ -6,13 +6,15 @@ import {Field, reduxForm, reset} from "redux-form";
 import './newPost.scss';
 import {connect} from "react-redux";
 import {addNewPost} from "../../actions/action_posts";
+import TextareaAutosize from "react-textarea-autosize";
+
 
 const NewPostForm = props => {
   const {handleSubmit, pristine, submitting} = props;
   return (
     <Form className="new-post-form" onSubmit={handleSubmit}>
       <FormGroup>
-        <Field component="textarea" type="textarea" name="text" id="text" className="form-control"
+        <Field component={TextareaAutosize} minRows={3} type="textarea" name="text" id="text" className="form-control"
                placeholder="Write something" required
         />
       </FormGroup>
@@ -24,7 +26,6 @@ const NewPostForm = props => {
     </Form>
   )
 };
-
 
 const afterSubmit = (result, dispatch) => {
   dispatch(reset('newPost'));

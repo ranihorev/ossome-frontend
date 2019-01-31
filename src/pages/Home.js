@@ -24,7 +24,7 @@ class Home extends Component {
             <Col xs="12" md="8" lg="7">
               <NewPost/>
               {!isEmpty(posts) && !isEmpty(posts.data) ?
-                <PostsList posts={posts}/> :
+                <PostsList posts={posts.data}/> :
                 ''
               }
             </Col>
