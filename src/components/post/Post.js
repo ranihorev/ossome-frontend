@@ -14,7 +14,7 @@ class Post extends Component {
     const {content: {location}} = this.props;
     if (isEmpty(location) || isEmpty(location.text)) return <div></div>
     return <div className="post-location">
-      Checked in at - <a href={GOOGLE_LINK + location.id} target="_blank">{location.text}</a>
+      Checked in at - <a href={GOOGLE_LINK + location.id} target="_blank" rel="noopener noreferrer">{location.text}</a>
     </div>
   }
 

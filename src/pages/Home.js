@@ -1,33 +1,21 @@
 import React, { Component } from 'react';
 import {Container, Row, Col} from "reactstrap";
 import BaseNavbar from "../components/navbar/navbar";
-import Post from "../components/post/Post";
-import {isEmpty} from "lodash";
 import NewPost from "../components/newPost/NewPost";
-import {auth_axios} from "../api";
+import {connect} from "react-redux";
+import {fetchPostsAction} from "../actions/action_posts";
+import PostsList from "../components/postsList/PostsList";
+import {isEmpty} from "lodash";
+
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      posts: [],
-    }
-  }
 
   componentDidMount() {
-      auth_axios.get('/v1/posts').then(res => {
-        console.log(res.data.posts);
-        this.setState({posts: res.data.posts});
-      })
+    this.props.fetchPosts();
   }
 
   render() {
-    let posts = <div></div>;
-    console.log(this.state.posts);
-    if (!isEmpty(this.state.posts)) {
-      posts = <div>{this.state.posts.map((p) => <Post key={p._id} content={p}/>)}</div>
-    }
+    const {posts} = this.props;
     return (
       <div>
         <BaseNavbar/>
@@ -35,9 +23,10 @@ class Home extends Component {
           <Row className="justify-content-center">
             <Col xs="12" md="8" lg="7">
               <NewPost/>
-              <div>
-                {posts}
-              </div>
+              {!isEmpty(posts) && !isEmpty(posts.data) ?
+                <PostsList posts={posts}/> :
+                ''
+              }
             </Col>
           </Row>
         </Container>
@@ -46,4 +35,19 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    posts: state.posts
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    fetchPosts: () => {
+      dispatch(fetchPostsAction());
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Home);
+
