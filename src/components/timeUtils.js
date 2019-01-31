@@ -14,9 +14,10 @@ function getTimePassed(cur_time) {
 }
 
 export default function get_age(utc_time) {
-  var post_time = new Date(utc_time);
-  var post_time_local = new Date(post_time.valueOf() - post_time.getTimezoneOffset() * 60000);
-  var time_passed = getTimePassed(post_time_local);
+  const post_time = new Date(utc_time);
+  console.log(post_time);
+  // const post_time_local = new Date(post_time.valueOf() - post_time.getTimezoneOffset() * 60000);
+  let time_passed = getTimePassed(post_time);
   if (time_passed.days === 0) {
     if (time_passed.hours  >= 1) {
       return time_passed.hours + "h";
