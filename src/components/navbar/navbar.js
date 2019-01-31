@@ -22,8 +22,11 @@ class BaseNavbar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Ossome</NavbarBrand>
+        <Navbar light expand="md">
+          <NavbarBrand href="/">
+            <img className="d-none d-lg-block" src="/logo.png" height="30" alt=""/>
+            <img className="d-lg-none" src="/favicon.png" height="30" alt=""/>
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
