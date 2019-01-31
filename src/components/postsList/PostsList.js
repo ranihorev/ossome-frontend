@@ -5,7 +5,6 @@ import Post from "../post/Post";
 
 export default class PostsList extends Component {
   render() {
-    console.log(this.props.posts);
     const {data} = this.props.posts;
     const posts = data.map((p) =>
       <CSSTransition key={p._id} in={this.props.in} timeout={400} classNames="fade" appear={false}>
