@@ -1,0 +1,59 @@
+.post {
+
+  margin-top: 20px;
+
+  .post-footer-option li {
+    float:left;
+    margin-right:50px;
+
+    a{
+      color:#AFB4BD;
+      font-weight:500;
+      font-size:1rem;
+
+      i {
+        font-size: 1.1rem;
+        margin-right: 5px;
+      }
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .photo-profile{
+    border:1px solid #DDD;
+  }
+
+  .anchor-username {
+    font-weight:bold;
+    font-size: 1.0rem;
+    color: #282c34;
+  }
+
+  .anchor-time{
+    color:#ADB2BB;
+    font-size: 0.9rem;
+
+    &::before {
+      content: "\00b7";
+      padding: 0 5px;
+    }
+  }
+
+  .post-location {
+    font-size: 0.95rem;
+    font-style: italic;
+
+    a {
+      color: #00478e;
+    }
+  }
+
+  .post-text {
+    margin-top: 10px;
+  }
+
+
+}

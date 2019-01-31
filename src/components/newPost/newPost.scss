@@ -1,0 +1,9 @@
+.new-post-form {
+  button[type='submit'] {
+    margin-top: 20px;
+  }
+
+  textarea:focus, input:focus {
+    box-shadow: none;
+  }
+}

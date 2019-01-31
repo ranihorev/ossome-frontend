@@ -3,6 +3,7 @@ import Autosuggest from 'react-autosuggest';
 import './LocationField.scss';
 import {auth_axios} from "../../../api"
 import googleAttr from './powered_by_google.png';
+import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 
 export default class LocationField extends Component {
   constructor(props) {
@@ -14,17 +15,23 @@ export default class LocationField extends Component {
     }
   }
 
-  onChange = (event, { newValue }) => {
+  onChange = (event, { newValue, method }) => {
+    const { input } = this.props;
     if (typeof newValue === 'object') {
-      this.setState({value: newValue});
+      input.onChange(newValue);
     }
     else {
-      this.setState({value: {text: newValue, id: ''}});
+      input.onChange({text: newValue, id: ''});
     }
   };
 
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
+  onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+  }
+
   onSuggestionsFetchRequested = ({ value, reason }) => {
     if (reason === 'input-changed') {
       var self = this;
@@ -38,7 +45,6 @@ export default class LocationField extends Component {
     }
   };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
   };
 
@@ -53,20 +59,35 @@ export default class LocationField extends Component {
       <div {... containerProps}>
         {children}
         <div className={'google-attr'}>
-          <img src={googleAttr}/>
+          <img src={googleAttr} alt={'Powered by Google'}/>
         </div>
       </div>
     );
   }
 
+  renderInputComponent = inputProps => (
+    <div>
+      <InputGroup>
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>
+            <i className="fal fa-map-marker-alt"></i>
+          </InputGroupText>
+        </InputGroupAddon>
+        <Input {...inputProps} />
+      </InputGroup>
+    </div>
+  );
+
   render() {
-    const { value: {text}, suggestions } = this.state;
+    const { suggestions } = this.state;
+    const { input: {value} }  = this.props;
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
       placeholder: 'Where are you?',
-      value: text,
-      onChange: this.onChange
+      value: value.text || '',
+      onChange: this.onChange,
+      onKeyDown: this.onKeyDown
     };
 
     // Finally, render it!
@@ -78,8 +99,10 @@ export default class LocationField extends Component {
         getSuggestionValue={(suggestion) => {return suggestion}}
         renderSuggestion={this.renderSuggestion}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
+        renderInputComponent={this.renderInputComponent}
         inputProps={inputProps}
       />
     );
   }
 }
+
