@@ -5,6 +5,8 @@ import CardBody from "reactstrap/es/CardBody";
 import Media from "reactstrap/es/Media";
 import get_age from "../timeUtils";
 import {isEmpty} from "lodash";
+import {deletePost} from "../../actions/action_posts";
+import {connect} from "react-redux";
 
 const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
 
@@ -19,13 +21,13 @@ class Post extends Component {
   }
 
   render() {
-    const {content} = this.props;
+    const {content, user} = this.props;
     return (
       <Card className="panel-default post">
         <CardBody>
           <section className="post-heading">
             <Row>
-              <Col md="11">
+              <Col xs="11">
                 <Media>
                   <div className="media-left">
                     <a href="#">
@@ -38,8 +40,14 @@ class Post extends Component {
                   </Media>
                 </Media>
               </Col>
-              <Col md="1">
-                <a href="#"></a>
+              <Col xs="1">
+                  {
+                    (content.user._id === user.data.id) ?
+                      <a className="post-menu" href="" onClick={(e) => {e.preventDefault(); this.props.deletePost(content._id)}}>
+                        <i className="fal fa-trash-alt"></i>
+                      </a> :
+                      ""
+                  }
               </Col>
             </Row>
           </section>
@@ -63,4 +71,18 @@ class Post extends Component {
   }
 }
 
-export default Post;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    deletePost: (post_id) => {
+      dispatch(deletePost(post_id));
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Post);
