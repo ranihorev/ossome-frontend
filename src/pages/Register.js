@@ -35,8 +35,8 @@ class Register extends Component {
       <div>
         <BaseNavbar/>
         <Container className="base-container">
-          <Row>
-            <Col>
+          <Row className="justify-content-center">
+            <Col xs="12" md="8" lg="7">
               <h3 className={'text-center'}>Register</h3>
               <Form className="form" onSubmit={this.submit}>
                 <FormGroup>
