@@ -8,7 +8,7 @@ export const ADD_NEW_POST = 'ADD_NEW_POST';
 
 export const fetchPostsAction = (data, type) => {
   return (dispatch) => {
-    return auth_axios.get('/v1/posts')
+    return auth_axios.get('/v1/posts/')
       .then(response => {
         dispatch(fetchPostsSuccess(response.data))
       })
