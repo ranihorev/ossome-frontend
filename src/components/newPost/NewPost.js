@@ -34,17 +34,13 @@ const NewPostForm = props => {
   )
 };
 
-const afterSubmit = (result, dispatch) => {
-  dispatch(reset(FORM_NAME));
-};
-
 
 const NewPostFormRedux = reduxForm({
   form: FORM_NAME,
   initialValues: {
-    location: {text: '', id: ''}
-  },
-  onSubmitSuccess: afterSubmit
+    location: {text: '', id: ''},
+    images: []
+  }
 })(NewPostForm);
 
 

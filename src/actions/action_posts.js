@@ -1,7 +1,6 @@
 import {auth_axios} from "../api";
-import {change} from "redux-form";
+import {reset} from "redux-form";
 import {FORM_NAME} from "../components/newPost/NewPost";
-// axios.defaults.withCredentials = true;
 
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE';
@@ -47,6 +46,7 @@ export const addNewPost = (content) => {
     const config = {headers: {'content-type': 'multipart/form-data'}}
     return auth_axios.post(`/v1/posts/post/`, formData, config)
       .then(response => {
+        dispatch(reset(FORM_NAME));
         dispatch(addNewPostSuccess(response.data.post))
       })
       .catch(error => {

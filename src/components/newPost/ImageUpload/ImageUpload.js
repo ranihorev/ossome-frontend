@@ -1,10 +1,9 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import './imageUpload.scss';
-import {auth_axios} from "../../../api";
 import {connect} from "react-redux";
-import { change } from 'redux-form';
 import {FORM_NAME} from "../NewPost";
+import {isEmpty} from "lodash";
 
 class ImageUpload extends React.Component {
   constructor(props) {
@@ -38,6 +37,13 @@ class ImageUpload extends React.Component {
   clear() {
     // Make sure to revoke the data uris to avoid memory leaks
     this.state.files.forEach(file => URL.revokeObjectURL(file.preview))
+    this.setState({files: []});
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (isEmpty(this.props.form)) return;
+    if (!isEmpty(this.state.files) && isEmpty(nextProps.form.values.images))
+      this.clear();
   }
 
   componentWillUnmount() {
@@ -77,16 +83,8 @@ class ImageUpload extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    form: state.form
+    form: state.form[FORM_NAME]
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    addImages: (images) => {
-      // dispatch(change(FORM_NAME, 'images', images))
-    },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps) (ImageUpload);
+export default connect(mapStateToProps, null) (ImageUpload);
