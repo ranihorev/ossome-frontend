@@ -8,8 +8,13 @@ import {applyMiddleware, createStore} from "redux";
 import rootReducer from "./reducers";
 import thunk from "redux-thunk";
 import {LOGIN_SUCCESS} from "./actions/action_user";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const middlewares = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ?
+  composeWithDevTools(applyMiddleware(thunk)) :
+  applyMiddleware(thunk);
+
+const store = createStore(rootReducer, middlewares );
 
 const user = localStorage.getItem('user');
 

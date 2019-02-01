@@ -1,0 +1,53 @@
+.image-upload-wrapper {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #c8e8ff4f;
+  border-radius: 15px;
+
+  .image-upload {
+    text-align: center;
+    color: #495057;
+    cursor: pointer;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .image-upload--isActive {
+    background-color: #c8e8ff;
+  }
+
+  .thumbsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .thumb {
+    display: inline-flex;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    width: 100px;
+    height: 100px;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+
+  .thumbInner {
+    display: flex;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 10px;
+
+    img {
+      display: block;
+      width: auto;
+      height: 100%;
+    }
+  }
+}
+

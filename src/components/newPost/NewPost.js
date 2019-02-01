@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
 import {FormGroup, Button, Form} from "reactstrap";
-import {auth_axios} from "../../api";
 import LocationField from "./Location/LocationField";
 import {Field, reduxForm, reset} from "redux-form";
 import './newPost.scss';
 import {connect} from "react-redux";
 import {addNewPost} from "../../actions/action_posts";
 import TextareaAutosize from "react-textarea-autosize";
+import ImageUpload from "./ImageUpload/ImageUpload";
 
+export const FORM_NAME = 'newPost';
+
+const TextWrapper = ({input, id, className, required, placeholder}) => {
+  return <TextareaAutosize minRows={3} id={id} className={className} required={required} placeholder={placeholder} {...input}/>;
+};
 
 const NewPostForm = props => {
-  const {handleSubmit, pristine, submitting} = props;
+  const {handleSubmit, pristine, submitting, onChange} = props;
   return (
     <Form className="new-post-form" onSubmit={handleSubmit}>
       <FormGroup>
-        <Field component={TextareaAutosize} minRows={3} type="textarea" name="text" id="text" className="form-control"
+        <Field component={TextWrapper} name="text" id="text" className="form-control"
                placeholder="Write something" required
         />
       </FormGroup>
       <Field name="location" component={LocationField}/>
+      <Field component={ImageUpload} name="images"/>
+
       <div className={'text-center'}>
 
         <Button color="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
@@ -28,12 +35,12 @@ const NewPostForm = props => {
 };
 
 const afterSubmit = (result, dispatch) => {
-  dispatch(reset('newPost'));
+  dispatch(reset(FORM_NAME));
 };
 
 
 const NewPostFormRedux = reduxForm({
-  form: 'newPost',
+  form: FORM_NAME,
   initialValues: {
     location: {text: '', id: ''}
   },
@@ -42,19 +49,9 @@ const NewPostFormRedux = reduxForm({
 
 
 class NewPost extends Component {
-
-  submit = (values) => {
-    auth_axios.post(`/v1/posts/`, {post_type: 'post', content: values}).then(res => {
-      this.props.addNewPost(res.data.post);
-    }).catch(err => {
-      console.log(err);
-    })
-  };
-
   render() {
     return (
-      <NewPostFormRedux onSubmit={this.submit}/>
-
+      <NewPostFormRedux onSubmit={this.props.addNewPost}/>
     );
   }
 };
