@@ -31,23 +31,12 @@ class Post extends Component {
     return (
       <Card className="panel-default post">
         <CardBody>
-          {images}
-          <section className="post-heading">
-            <Row>
-              <Col xs="11">
-                <Media>
-                  <div className="media-left">
-                    <a href="#">
-                      {/*<img className="media-object photo-profile" src="" width="40" height="40" alt="..."/>*/}
-                    </a>
-                  </div>
-                  <Media body>
-                    <a href="#" className="anchor-username media-heading">{content.user.first_name} {content.user.last_name}</a>
-                    <a href="#" className="anchor-time">{get_age(content.date_published)}</a>
-                  </Media>
-                </Media>
-              </Col>
-              <Col xs="1">
+          <section className="post-heading d-flex justify-content-between">
+              <div>
+                <a href="#" className="anchor-username media-heading">{content.user.first_name} {content.user.last_name}</a>
+                <a href="#" className="anchor-time">{get_age(content.date_published)}</a>
+              </div>
+              <div>
                   {
                     (content.user._id === user.data.id) ?
                       <a className="post-menu" href="" onClick={(e) => {e.preventDefault(); this.props.deletePost(content._id)}}>
@@ -55,12 +44,12 @@ class Post extends Component {
                       </a> :
                       ""
                   }
-              </Col>
-            </Row>
+              </div>
           </section>
           <section className="post-body">
             {this.redner_location()}
             <div className="post-text">{content.text}</div>
+            {images}
           </section>
           <section className="post-footer">
             <hr/>

@@ -1,6 +1,7 @@
 import {auth_axios} from "../api";
 import {reset} from "redux-form";
 import {FORM_NAME} from "../components/newPost/NewPost";
+import {cloneDeep} from "lodash";
 
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE';
@@ -37,17 +38,18 @@ const fetchPostsFailure = (error) => {
 
 export const addNewPost = (content) => {
   return (dispatch) => {
+    let content_data = cloneDeep(content);
     let formData = new FormData();
-    content.images.forEach((im) => formData.append('images', im));
+    content_data.images.forEach((im) => formData.append('images', im));
     formData.append('post_type', 'post');
-    delete content.images;
-    formData.append('content', JSON.stringify(content));
+    delete content_data.images;
+    formData.append('content', JSON.stringify(content_data));
 
-    const config = {headers: {'content-type': 'multipart/form-data'}}
+    const config = {headers: {'content-type': 'multipart/form-data'}};
     return auth_axios.post(`/v1/posts/post/`, formData, config)
       .then(response => {
+        dispatch(addNewPostSuccess(response.data.post));
         dispatch(reset(FORM_NAME));
-        dispatch(addNewPostSuccess(response.data.post))
       })
       .catch(error => {
         console.log(error)
