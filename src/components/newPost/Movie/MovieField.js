@@ -6,7 +6,6 @@ import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 import {isEmpty} from "lodash";
 import Rating from "react-rating";
 
-
 export default class MovieField extends Component {
   constructor(props) {
     super(props);
@@ -88,7 +87,6 @@ export default class MovieField extends Component {
       onKeyDown: this.onKeyDown
     };
 
-    // Finally, render it!
     return (
       <div className="movie-field">
         <Autosuggest
@@ -100,13 +98,18 @@ export default class MovieField extends Component {
           renderInputComponent={this.renderInputComponent}
           inputProps={inputProps}
         />
-        <Rating
-          emptySymbol="far fa-star"
-          fullSymbol="fas fa-star"
-          fractions={2}
-          onChange={this.updateRating}
-          initialRating={value.rating}
-        />
+        <div className="text-center">
+          {!isEmpty(value.title) ?
+            <Rating
+              className="movie-rating"
+              emptySymbol="fas fa-star star-empty"
+              fullSymbol="fas fa-star star-full"
+              fractions={2}
+              onChange={this.updateRating}
+              initialRating={value.rating}
+            /> : ''
+          }
+        </div>
       </div>
     );
   }
