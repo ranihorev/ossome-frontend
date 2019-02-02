@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
 import Autosuggest from 'react-autosuggest';
-import './LocationField.scss';
-import {auth_axios} from "../../../api"
-import googleAttr from './powered_by_google.png';
+import {auth_axios} from "../../../api";
+import './MovieField.scss';
 import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 
-export default class LocationField extends Component {
+
+export default class MovieField extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value: {text: '', id: ''},
+      value: {title: '', id: ''},
       suggestions: []
     }
   }
@@ -21,7 +21,7 @@ export default class LocationField extends Component {
       input.onChange(newValue);
     }
     else {
-      input.onChange({text: newValue, id: ''});
+      input.onChange({title: newValue, id: ''});
     }
   };
 
@@ -35,7 +35,7 @@ export default class LocationField extends Component {
   onSuggestionsFetchRequested = ({ value, reason }) => {
     if (reason === 'input-changed') {
       var self = this;
-      auth_axios.get('v1/posts/autocomplete_places/', {params: {location: value}})
+      auth_axios.get('v1/posts/search_movies/', {params: {q: value}})
         .then(res => {
           self.setState({suggestions: res.data});
         })
@@ -50,27 +50,19 @@ export default class LocationField extends Component {
 
   renderSuggestion = suggestion => (
     <div>
-      {suggestion.text}
+      <div className="movie-thumb">
+        <img src={`https://image.tmdb.org/t/p/w92/${suggestion.img}`}/>
+      </div>
+      {suggestion.title}
     </div>
   );
-
-  renderSuggestionsContainer = ({containerProps , children, query}) => {
-    return (
-      <div {... containerProps}>
-        {children}
-        <div className={'google-attr'}>
-          <img src={googleAttr} alt={'Powered by Google'}/>
-        </div>
-      </div>
-    );
-  }
 
   renderInputComponent = inputProps => (
     <div>
       <InputGroup>
         <InputGroupAddon addonType="prepend">
           <InputGroupText>
-            <i className="fal fa-map-marker-alt"></i>
+            <i className="fal fa-film"></i>
           </InputGroupText>
         </InputGroupAddon>
         <Input {...inputProps} />
@@ -84,22 +76,21 @@ export default class LocationField extends Component {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      placeholder: 'Where are you?',
-      value: value.text || '',
+      placeholder: 'What are you watch?',
+      value: value.title || '',
       onChange: this.onChange,
       onKeyDown: this.onKeyDown
     };
 
     // Finally, render it!
     return (
-      <div className="location-field">
+      <div className="movie-field">
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={(suggestion) => {return suggestion}}
           renderSuggestion={this.renderSuggestion}
-          renderSuggestionsContainer={this.renderSuggestionsContainer}
           renderInputComponent={this.renderInputComponent}
           inputProps={inputProps}
         />

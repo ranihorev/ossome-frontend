@@ -1,11 +1,12 @@
-.location-field {
+.movie-field {
   margin-bottom: 16px;
 
   .react-autosuggest__container {
     position: relative;
+    z-index: 1000;
 
     .input-group-text {
-      padding: 5px 10px;
+      padding: 5px 8px;
       line-height: 1;
     }
 
@@ -62,7 +63,15 @@
 
     .react-autosuggest__suggestion {
       cursor: pointer;
-      padding: 5px 10px;
+      padding: 2px 4px;
+      .movie-thumb {
+        display: inline-block;
+        margin-right: 8px;
+
+        img {
+          width: 30px;
+        }
+      }
     }
 
     .react-autosuggest__suggestion--highlighted {
@@ -81,15 +90,6 @@
       padding: 10px 0 0 10px;
       font-size: 12px;
       color: #777;
-    }
-
-    .google-attr {
-      border-top: 1px solid #e0e0e0;
-      padding: 5px 10px;
-
-      img {
-        height: 16px;
-      }
     }
   }
 }

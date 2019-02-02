@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {addNewPost} from "../../actions/action_posts";
 import TextareaAutosize from "react-textarea-autosize";
 import ImageUpload from "./ImageUpload/ImageUpload";
+import MovieField from "./Movie/MovieField";
 
 export const FORM_NAME = 'newPost';
 
@@ -24,8 +25,8 @@ const NewPostForm = props => {
         />
       </FormGroup>
       <Field name="location" component={LocationField}/>
+      <Field component={MovieField} name="movie"/>
       <Field component={ImageUpload} name="images"/>
-
       <div className={'text-center'}>
 
         <Button color="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
@@ -39,6 +40,7 @@ const NewPostFormRedux = reduxForm({
   form: FORM_NAME,
   initialValues: {
     location: {text: '', id: ''},
+    movie: {title: '', id: ''},
     images: []
   }
 })(NewPostForm);
