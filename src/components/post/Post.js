@@ -7,6 +7,7 @@ import get_age from "../timeUtils";
 import {isEmpty} from "lodash";
 import {deletePost} from "../../actions/action_posts";
 import {connect} from "react-redux";
+import ImageGallery from "react-image-gallery";
 
 const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
 
@@ -22,9 +23,15 @@ class Post extends Component {
 
   render() {
     const {content, user} = this.props;
+    const images_data = content.images.map((im) => {return {original: im}});
+    let images = <span/>;
+    if (!isEmpty(images_data)) {
+      images = <ImageGallery items={images_data} showPlayButton={false} showThumbnails={false} showFullscreenButton={false}/>;
+    }
     return (
       <Card className="panel-default post">
         <CardBody>
+          {images}
           <section className="post-heading">
             <Row>
               <Col xs="11">

@@ -15,7 +15,7 @@ class ImageUpload extends React.Component {
 
   onDrop(files) {
     const { input: { onChange } } = this.props;
-    onChange(files[0]);
+    onChange(files);
     this.setState({
       files: files.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
@@ -56,9 +56,7 @@ class ImageUpload extends React.Component {
     const thumbs = files.map(file => (
       <div className={'thumb'} key={file.name}>
         <div className={'thumbInner'}>
-          <img
-            src={file.preview}
-          />
+          <img src={file.preview} alt="preview"/>
         </div>
       </div>
     ));

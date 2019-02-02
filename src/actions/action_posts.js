@@ -38,7 +38,7 @@ const fetchPostsFailure = (error) => {
 export const addNewPost = (content) => {
   return (dispatch) => {
     let formData = new FormData();
-    formData.append('images', content['images']);
+    content.images.forEach((im) => formData.append('images', im));
     formData.append('post_type', 'post');
     delete content.images;
     formData.append('content', JSON.stringify(content));

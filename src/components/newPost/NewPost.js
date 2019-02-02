@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {FormGroup, Button, Form} from "reactstrap";
 import LocationField from "./Location/LocationField";
-import {Field, reduxForm, reset} from "redux-form";
+import {Field, reduxForm} from "redux-form";
 import './newPost.scss';
 import {connect} from "react-redux";
 import {addNewPost} from "../../actions/action_posts";
@@ -15,7 +15,7 @@ const TextWrapper = ({input, id, className, required, placeholder}) => {
 };
 
 const NewPostForm = props => {
-  const {handleSubmit, pristine, submitting, onChange} = props;
+  const {handleSubmit, pristine, submitting} = props;
   return (
     <Form className="new-post-form" onSubmit={handleSubmit}>
       <FormGroup>
