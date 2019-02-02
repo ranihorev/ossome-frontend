@@ -93,23 +93,22 @@
       color: #777;
     }
   }
-
-  .movie-rating {
-    font-size: 1.3rem;
-    margin-top: 5px;
-    transition: all 0.3s ease-in;
-
-    .fa-star {
-      margin: 1px;
-    }
-    .star-empty {
-      color: #d4d4d4;
-    }
-
-    .star-full {
-      color: #ffd34b;
-    }
-
-  }
 }
 
+.movie-rating {
+  font-size: 1.3rem;
+  margin-top: 5px;
+  transition: all 0.3s ease-in;
+
+  .fa-star {
+    margin: 1px;
+  }
+  .star-empty {
+    color: #d4d4d4;
+  }
+
+  .star-full {
+    color: #ffd34b;
+  }
+
+}

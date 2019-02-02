@@ -53,8 +53,20 @@
     }
   }
 
+  .post-watching {
+    font-size: 0.95rem;
+    font-style: italic;
+
+    a {
+      color: #00478e;
+    }
+  }
+
+  .post-heading {
+    margin-bottom: 10px;
+  }
+
   .post-text {
-    margin-top: 10px;
   }
 
   .post-menu {
