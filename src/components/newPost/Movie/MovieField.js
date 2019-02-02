@@ -3,6 +3,7 @@ import Autosuggest from 'react-autosuggest';
 import {auth_axios} from "../../../api";
 import './MovieField.scss';
 import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
+import {isEmpty} from "lodash";
 
 
 export default class MovieField extends Component {
@@ -51,7 +52,7 @@ export default class MovieField extends Component {
   renderSuggestion = suggestion => (
     <div>
       <div className="movie-thumb">
-        <img src={`https://image.tmdb.org/t/p/w92/${suggestion.img}`}/>
+        {(!isEmpty(suggestion.img)) ? <img src={`https://image.tmdb.org/t/p/w92/${suggestion.img}`}/> : ""}
       </div>
       {suggestion.title}
     </div>

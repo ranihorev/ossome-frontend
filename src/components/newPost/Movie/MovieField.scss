@@ -67,9 +67,10 @@
       .movie-thumb {
         display: inline-block;
         margin-right: 8px;
-
+        width: 30px;
+        height: 40px;
         img {
-          width: 30px;
+          height: 100%;
         }
       }
     }
