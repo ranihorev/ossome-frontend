@@ -12,6 +12,7 @@
     "react-dom": "^16.7.0",
     "react-dropzone": "^8.0.4",
     "react-image-gallery": "^0.8.12",
+    "react-rating": "^1.6.2",
     "react-redux": "^6.0.0",
     "react-redux-form": "^1.16.12",
     "react-router": "^4.3.1",

@@ -40,7 +40,7 @@ const NewPostFormRedux = reduxForm({
   form: FORM_NAME,
   initialValues: {
     location: {text: '', id: ''},
-    movie: {title: '', id: ''},
+    movie: {title: '', id: '', type: ''},
     images: []
   }
 })(NewPostForm);

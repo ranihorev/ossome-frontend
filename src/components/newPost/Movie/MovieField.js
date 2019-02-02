@@ -4,6 +4,7 @@ import {auth_axios} from "../../../api";
 import './MovieField.scss';
 import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 import {isEmpty} from "lodash";
+import Rating from "react-rating";
 
 
 export default class MovieField extends Component {
@@ -11,19 +12,24 @@ export default class MovieField extends Component {
     super(props);
 
     this.state = {
-      value: {title: '', id: ''},
       suggestions: []
     }
   }
 
+
   onChange = (event, { newValue, method }) => {
     const { input } = this.props;
-    if (typeof newValue === 'object') {
-      input.onChange(newValue);
-    }
-    else {
-      input.onChange({title: newValue, id: ''});
-    }
+    let newValueNorm = newValue;
+    if (typeof newValue !== 'object') {
+      newValueNorm = {title: newValue, id: '', type: ''}
+    };
+    newValueNorm.rating = input.value.rating;
+    input.onChange(newValueNorm);
+  };
+
+  updateRating = (rating) => {
+    const { input } = this.props;
+    input.onChange({...input.value, rating: rating});
   };
 
   onKeyDown = (e) => {
@@ -46,8 +52,7 @@ export default class MovieField extends Component {
     }
   };
 
-  onSuggestionsClearRequested = () => {
-  };
+  onSuggestionsClearRequested = () => {};
 
   renderSuggestion = suggestion => (
     <div>
@@ -94,6 +99,13 @@ export default class MovieField extends Component {
           renderSuggestion={this.renderSuggestion}
           renderInputComponent={this.renderInputComponent}
           inputProps={inputProps}
+        />
+        <Rating
+          emptySymbol="far fa-star"
+          fullSymbol="fas fa-star"
+          fractions={2}
+          onChange={this.updateRating}
+          initialRating={value.rating}
         />
       </div>
     );
