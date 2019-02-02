@@ -38,7 +38,7 @@ class Post extends Component {
             fullSymbol="fas fa-star star-full"
             fractions={2}
             readonly={true}
-            initialRating={3}
+            initialRating={movie.rating}
           /></div> : ''
       }
     </div>
