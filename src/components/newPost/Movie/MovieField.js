@@ -81,7 +81,7 @@ export default class MovieField extends Component {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      placeholder: 'What are you watch?',
+      placeholder: 'What are you watching?',
       value: value.title || '',
       onChange: this.onChange,
       onKeyDown: this.onKeyDown
