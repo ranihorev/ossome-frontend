@@ -14,9 +14,9 @@ export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
 
-export const fetchPostsAction = (data, type) => {
+export const fetchPostsAction = (params={}) => {
   return (dispatch) => {
-    return auth_axios.get('/v1/posts/')
+    return auth_axios.get('/v1/posts/', {params: params})
       .then(response => {
         dispatch(fetchPostsSuccess(response.data))
       })

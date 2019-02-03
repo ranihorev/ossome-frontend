@@ -11,7 +11,7 @@ import {isEmpty} from "lodash";
 class Home extends Component {
 
   componentDidMount() {
-    this.props.fetchPosts();
+    this.props.fetchPosts(this.props.match.params);
   }
 
   render() {
@@ -43,8 +43,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchPosts: () => {
-      dispatch(fetchPostsAction());
+    fetchPosts: (params) => {
+      dispatch(fetchPostsAction(params));
     },
   }
 }

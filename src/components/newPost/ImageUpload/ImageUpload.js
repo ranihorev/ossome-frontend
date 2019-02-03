@@ -3,7 +3,6 @@ import Dropzone from 'react-dropzone';
 import './imageUpload.scss';
 import {connect} from "react-redux";
 import {FORM_NAME} from "../NewPost";
-import {isEmpty} from "lodash";
 
 class ImageUpload extends React.Component {
   constructor(props) {

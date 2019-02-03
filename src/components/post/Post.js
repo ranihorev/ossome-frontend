@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import ImageGallery from "react-image-gallery";
 import Rating from "react-rating";
 import DeletePost from "./DeletePost";
+import {Link} from "react-router-dom";
 
 const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
 const TMDB_LINK = 'https://www.themoviedb.org';
@@ -63,7 +64,9 @@ class Post extends Component {
         <CardBody>
           <section className="post-heading d-flex justify-content-between">
               <div>
-                <a href="#" className="anchor-username media-heading">{content.user.first_name} {content.user.last_name}</a>
+                <Link to={`/user/${content.user._id}`} className="anchor-username media-heading">
+                  {content.user.first_name} {content.user.last_name}
+                </Link>
                 <a href="#" className="anchor-time">{get_age(content.date_published)}</a>
               </div>
               {
@@ -93,11 +96,11 @@ class Post extends Component {
   }
 }
 
+
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user
   }
 }
-
 
 export default connect(mapStateToProps, null) (Post);

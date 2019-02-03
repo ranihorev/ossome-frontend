@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import {DELETE_POST, deletePost} from "../../actions/action_posts";
 import {connect} from "react-redux";
-import {isEmpty} from "lodash";
 
 class DeletePost extends React.Component {
   constructor(props) {
