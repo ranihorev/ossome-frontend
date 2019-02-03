@@ -20,13 +20,9 @@ class NewPostForm extends Component {
     const {handleSubmit, pristine, submitting} = this.props;
     return (
       <Form className="new-post-form" onSubmit={handleSubmit}>
-        <FormGroup>
-          <Field component={TextWrapper} name="text" id="text" className="form-control"
-                 placeholder="Write something"
-          />
-        </FormGroup>
         <Field name="location" component={LocationField}/>
         <Field component={MovieField} name="movie"/>
+        <Field component={TextWrapper} name="text" id="text" className="form-control text-field" placeholder="Write something"/>
         <Field component={ImageUpload} name="images" is_submitting={submitting}/>
         <div className={'text-center'}>
           <Button color="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
