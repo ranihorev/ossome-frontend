@@ -4,10 +4,10 @@ import {Card} from "reactstrap";
 import CardBody from "reactstrap/es/CardBody";
 import get_age from "../timeUtils";
 import {isEmpty} from "lodash";
-import {deletePost} from "../../actions/action_posts";
 import {connect} from "react-redux";
 import ImageGallery from "react-image-gallery";
 import Rating from "react-rating";
+import DeletePost from "./DeletePost";
 
 const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
 const TMDB_LINK = 'https://www.themoviedb.org';
@@ -18,7 +18,11 @@ class Post extends Component {
     const {content: {location}} = this.props;
     if (isEmpty(location) || isEmpty(location.text)) return <div></div>
     return <div className="post-location">
-      Checked in at - <a href={GOOGLE_LINK + location.id} target="_blank" rel="noopener noreferrer">{location.text}</a>
+      Checked in at - {
+      !isEmpty(location.id) ?
+        <a href={GOOGLE_LINK + location.id} target="_blank" rel="noopener noreferrer">{location.text}</a>
+        : location.text
+    }
     </div>
   }
 
@@ -27,7 +31,10 @@ class Post extends Component {
     if (isEmpty(movie) || isEmpty(movie.title)) return <div></div>
     return <div className="post-watching">
       <div>
-        Watching - <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.title}</a>
+        Watching - { !isEmpty(movie.id) ?
+        <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.title}</a>
+        : movie.title
+      }
       </div>
       {
         movie.rating !== undefined ?
@@ -59,15 +66,10 @@ class Post extends Component {
                 <a href="#" className="anchor-username media-heading">{content.user.first_name} {content.user.last_name}</a>
                 <a href="#" className="anchor-time">{get_age(content.date_published)}</a>
               </div>
-              <div>
-                  {
-                    (content.user._id === user.data.id) ?
-                      <a className="post-menu" href="" onClick={(e) => {e.preventDefault(); this.props.deletePost(content._id)}}>
-                        <i className="fal fa-trash-alt"></i>
-                      </a> :
-                      ""
-                  }
-              </div>
+              {
+                (content.user._id === user.data.id) ?
+                  <DeletePost post={content._id}/> : ""
+              }
           </section>
           <section className="post-body">
             {this.redner_location()}
@@ -97,12 +99,5 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    deletePost: (post_id) => {
-      dispatch(deletePost(post_id));
-    },
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps) (Post);
+export default connect(mapStateToProps, null) (Post);

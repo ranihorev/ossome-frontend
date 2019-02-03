@@ -10,6 +10,12 @@ body {
 
 }
 
+a, button {
+  &:focus {
+    outline: none;
+  }
+}
+
 .base-container {
   margin-top: 20px;
 }

@@ -3,9 +3,13 @@ import {reset} from "redux-form";
 import {FORM_NAME} from "../components/newPost/NewPost";
 import {cloneDeep} from "lodash";
 
+export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE';
+
 export const ADD_NEW_POST = 'ADD_NEW_POST';
+
+export const DELETE_POST = 'DELETE_POST';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
@@ -52,7 +56,8 @@ export const addNewPost = (content) => {
         dispatch(reset(FORM_NAME));
       })
       .catch(error => {
-        console.log(error)
+        console.log(error);
+        Promise.resolve();
       });
   }
 };
@@ -68,7 +73,6 @@ export const deletePost = (post_id) => {
   return (dispatch) => {
     return auth_axios.delete(`/v1/posts/post/${post_id}`)
       .then(response => {
-        console.log(response)
         dispatch(deletePostSuccess(post_id))
       })
       .catch(error => {
