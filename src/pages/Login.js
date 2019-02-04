@@ -5,6 +5,7 @@ import {loginRegisterAction} from "../actions/action_user";
 import {connect} from "react-redux";
 import {isEmpty} from "lodash";
 import './auth.scss';
+import {Link} from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -38,7 +39,6 @@ class Login extends Component {
               <h3 className={'text-center'}>Sign In</h3>
               <Form className="form" onSubmit={this.submit}>
                 <FormGroup>
-                  <Label>Email</Label>
                   <Input type="email" name="email" id="email"
                          value={this.state.email} onChange={this.handleChange} placeholder="myemail@email.com"
                          required
@@ -46,19 +46,23 @@ class Login extends Component {
                 </FormGroup>
 
                 <FormGroup>
-                  <Label>Password</Label>
                   <Input type="password" name="password" id="password"
                          value={this.state.password} onChange={this.handleChange} placeholder="Enter Password"
                          required
                   />
                 </FormGroup>
                 <div className={'text-center'}>
-                  <div className="login-error">
-                    {!isEmpty(error) ? error.data.message : ''}
-                  </div>
-                  <Button color="primary">Submit</Button>
+                    {!isEmpty(error) ?
+                      <div className="login-error">
+                      error.data.message
+                      </div> : ''
+                    }
+                  <Button color="primary" className="ossome-button">Log in</Button>
                 </div>
               </Form>
+              <div className="already">
+                Not a member yet? <Link to={'/register'}>Join Now</Link>
+              </div>
             </Col>
           </Row>
         </Container>

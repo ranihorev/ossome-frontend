@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {loginRegisterAction} from "../actions/action_user";
 import {isEmpty} from "lodash";
 import {withRouter} from "react-router";
+import {Link} from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
@@ -36,43 +37,48 @@ class Register extends Component {
         <BaseNavbar/>
         <Container className="base-container">
           <Row className="justify-content-center">
-            <Col xs="12" md="8" lg="7">
-              <h3 className={'text-center'}>Register</h3>
+            <Col xs="12" md="6" lg="5">
+              <h3 className={'text-center'}>Join Ossome</h3>
+              <div class="slogan">
+                Open-Source social network<br/>
+                Share movies, music, restaurants & more with your friends
+              </div>
               <Form className="form" onSubmit={this.submit}>
                 <FormGroup>
-                  <Label>First Name</Label>
                   <Input type="text" name="first_name" id="first_name"
                          value={this.state.first_name} onChange={this.handleChange} placeholder="First Name"
                          required
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label>Last Name</Label>
                   <Input type="text" name="last_name" id="last_name"
                          value={this.state.last_name} onChange={this.handleChange} placeholder="Last Name"
                          required
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label>Email</Label>
                   <Input type="email" name="email" id="email"
-                         value={this.state.email} onChange={this.handleChange} placeholder="myemail@email.com"
+                         value={this.state.email} onChange={this.handleChange} placeholder="Email"
                          required
                   />
                 </FormGroup>
 
                 <FormGroup>
-                  <Label>Password</Label>
                   <Input type="password" name="password" id="password"
-                         value={this.state.password} onChange={this.handleChange} placeholder="Enter Password"
+                         value={this.state.password} onChange={this.handleChange} placeholder="Password"
                          required
                   />
                 </FormGroup>
                 <div className={'text-center'}>
-                  <div className="login-error">
-                    {!isEmpty(error) ? error.data.message : ''}
-                  </div>
-                  <Button color="primary">Submit</Button>
+                  {!isEmpty(error) ?
+                    <div className="login-error">
+                      error.data.message
+                    </div> : ''
+                  }
+                  <Button color="primary" className="ossome-button">Sign up</Button>
+                </div>
+                <div className="already">
+                  Already registered? <Link to={'/login'}>Sign in</Link>
                 </div>
               </Form>
             </Col>
