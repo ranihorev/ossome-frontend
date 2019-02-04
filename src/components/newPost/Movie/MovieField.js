@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Autosuggest from 'react-autosuggest';
 import {auth_axios} from "../../../api";
 import './MovieField.scss';
+import '../BaseField.scss';
 import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
 import {isEmpty} from "lodash";
 import Rating from "react-rating";
@@ -11,7 +12,8 @@ export default class MovieField extends Component {
     super(props);
 
     this.state = {
-      suggestions: []
+      suggestions: [],
+      expanded: false
     }
   }
 
@@ -62,17 +64,27 @@ export default class MovieField extends Component {
     </div>
   );
 
+  toggleExpanded = () => {
+    this.setState({expanded: !this.state.expanded})
+  };
+
   renderInputComponent = inputProps => (
-    <div>
       <InputGroup>
         <InputGroupAddon addonType="prepend">
           <InputGroupText>
             <i className="fal fa-film"></i>
           </InputGroupText>
+          {
+            !this.state.expanded ?
+              <InputGroupText className="activity-title-collapsed" onClick={this.toggleExpanded}>
+                Watching
+              </InputGroupText> : ''
+          }
         </InputGroupAddon>
-        <Input {...inputProps} />
+        {
+          this.state.expanded ? <Input autoFocus {...inputProps} /> : ''
+        }
       </InputGroup>
-    </div>
   );
 
   render() {
@@ -87,8 +99,10 @@ export default class MovieField extends Component {
       onKeyDown: this.onKeyDown
     };
 
+    const {expanded} = this.state;
+
     return (
-      <div className="movie-field">
+      <div className={`base-field movie-field ${!expanded ? 'collapsed' : ''}`}>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

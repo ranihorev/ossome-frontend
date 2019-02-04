@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Autosuggest from 'react-autosuggest';
 import './LocationField.scss';
+import '../BaseField.scss';
 import {auth_axios} from "../../../api"
 import googleAttr from './powered_by_google.png';
 import {Input, InputGroup, InputGroupAddon, InputGroupText} from "reactstrap";
@@ -11,7 +12,8 @@ export default class LocationField extends Component {
 
     this.state = {
       value: {text: '', id: ''},
-      suggestions: []
+      suggestions: [],
+      expanded: false
     }
   }
 
@@ -63,19 +65,29 @@ export default class LocationField extends Component {
         </div>
       </div>
     );
-  }
+  };
+
+  toggleExpanded = () => {
+    this.setState({expanded: !this.state.expanded});
+  };
 
   renderInputComponent = inputProps => (
-    <div>
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>
-            <i className="fal fa-map-marker-alt"></i>
-          </InputGroupText>
-        </InputGroupAddon>
-        <Input {...inputProps} />
-      </InputGroup>
-    </div>
+    <InputGroup>
+      <InputGroupAddon addonType="prepend">
+        <InputGroupText>
+          <i className="fal fa-map-marker-alt"></i>
+        </InputGroupText>
+        {
+          !this.state.expanded ?
+            <InputGroupText className="activity-title-collapsed" onClick={this.toggleExpanded}>
+              Location
+            </InputGroupText> : ''
+        }
+      </InputGroupAddon>
+      {
+        this.state.expanded ? <Input autoFocus {...inputProps}/> : ''
+      }
+    </InputGroup>
   );
 
   render() {
@@ -90,9 +102,10 @@ export default class LocationField extends Component {
       onKeyDown: this.onKeyDown
     };
 
-    // Finally, render it!
+    const {expanded} = this.state;
+
     return (
-      <div className="location-field">
+      <div className={`base-field location-field ${!expanded ? 'collapsed' : ''}`}>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
