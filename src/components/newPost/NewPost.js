@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {FormGroup, Button, Form} from "reactstrap";
+import {Button, Form} from "reactstrap";
 import LocationField from "./Location/LocationField";
 import {Field, reduxForm, startSubmit} from "redux-form";
 import './newPost.scss';

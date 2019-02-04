@@ -32,7 +32,7 @@ class DeletePost extends React.Component {
   render() {
     return (
       <div>
-        <a className="post-menu" href="" onClick={this.toggle}>
+        <a className="post-menu" href="#" onClick={this.toggle}>
           <i className="fal fa-trash-alt"></i>
         </a>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} centered={true}>

@@ -9,16 +9,42 @@ import ImageGallery from "react-image-gallery";
 import Rating from "react-rating";
 import DeletePost from "./DeletePost";
 import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
 
 const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
 const TMDB_LINK = 'https://www.themoviedb.org';
+
+function PostField(props) {
+  const {data} = props
+  if (isEmpty(data) || isEmpty(data.text)) return <div></div>
+  return <div className="">
+    {props.children}
+    {
+      data.rating !== undefined ?
+        <div className="text-center mt-2">
+          <Rating
+            className="field-rating"
+            emptySymbol="fas fa-star star-empty"
+            fullSymbol="fas fa-star star-full"
+            fractions={2}
+            readonly={true}
+            initialRating={data.rating}
+          /></div> : ''
+    }
+  </div>
+}
+
+PostField.propTypes = {
+  data: PropTypes.object.isRequired,
+  className: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired
+}
 
 class Post extends Component {
 
   redner_location() {
     const {content: {location}} = this.props;
-    if (isEmpty(location) || isEmpty(location.text)) return <div></div>
-    return <div className="post-location">
+    return <PostField data={location} className='post-location'>
       <div>
         Checked in at - {
         !isEmpty(location.id) ?
@@ -26,44 +52,19 @@ class Post extends Component {
           : location.text
       }
       </div>
-      {
-        location.rating !== undefined ?
-          <div className="text-center mt-2">
-            <Rating
-              className="field-rating"
-              emptySymbol="fas fa-star star-empty"
-              fullSymbol="fas fa-star star-full"
-              fractions={2}
-              readonly={true}
-              initialRating={location.rating}
-            /></div> : ''
-      }
-    </div>
+    </PostField>
   }
 
   redner_watching() {
     const {content: {movie}} = this.props;
-    if (isEmpty(movie) || isEmpty(movie.text)) return <div></div>
-    return <div className="post-watching">
+    return <PostField data={movie} className='post-watching'>
       <div>
         Watching - { !isEmpty(movie.id) ?
         <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.text}</a>
         : movie.title
       }
       </div>
-      {
-        movie.rating !== undefined ?
-          <div className="text-center mt-2">
-          <Rating
-            className="field-rating"
-            emptySymbol="fas fa-star star-empty"
-            fullSymbol="fas fa-star star-full"
-            fractions={2}
-            readonly={true}
-            initialRating={movie.rating}
-          /></div> : ''
-      }
-    </div>
+    </PostField>
   }
 
   render() {
