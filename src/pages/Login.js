@@ -44,14 +44,14 @@ class Login extends Component {
               <Form className="form" onSubmit={this.submit}>
                 <FormGroup>
                   <Input type="email" name="email" id="email"
-                         value={this.state.email} onChange={this.handleChange} placeholder="myemail@email.com"
+                         value={this.state.email} onChange={this.handleChange} placeholder="Email"
                          required
                   />
                 </FormGroup>
 
                 <FormGroup>
                   <Input type="password" name="password" id="password"
-                         value={this.state.password} onChange={this.handleChange} placeholder="Enter Password"
+                         value={this.state.password} onChange={this.handleChange} placeholder="Password"
                          required
                   />
                 </FormGroup>
