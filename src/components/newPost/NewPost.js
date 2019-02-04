@@ -9,6 +9,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import ImageUpload from "./ImageUpload/ImageUpload";
 import MovieField from "./Movie/MovieField";
 import Loader from './loading.gif';
+import MusicField from "./Music/MusicField";
 
 export const FORM_NAME = 'newPost';
 
@@ -20,8 +21,9 @@ class NewPostForm extends Component {
     const {handleSubmit, pristine, submitting} = this.props;
     return (
       <Form className="new-post-form" onSubmit={handleSubmit}>
-        <Field component={MovieField} name="movie"/>
         <Field component={LocationField} name="location"/>
+        <Field component={MovieField} name="movie"/>
+        <Field component={MusicField} name="music"/>
         <Field component={TextWrapper} name="text" id="text" className="form-control text-field" placeholder="Write something"/>
         <Field component={ImageUpload} name="images" is_submitting={submitting}/>
         <div className={'text-center'}>
@@ -43,7 +45,8 @@ const NewPostFormRedux = reduxForm({
   form: FORM_NAME,
   initialValues: {
     location: {text: '', id: ''},
-    movie: {title: '', id: '', type: ''},
+    movie: {text: '', id: '', type: ''},
+    music: {text: '', id: '', type: ''},
     images: []
   }
 })(NewPostForm);

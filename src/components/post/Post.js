@@ -17,7 +17,7 @@ const TMDB_LINK = 'https://www.themoviedb.org';
 function PostField(props) {
   const {data} = props
   if (isEmpty(data) || isEmpty(data.text)) return <div></div>
-  return <div className="">
+  return <div className={props.className}>
     {props.children}
     {
       data.rating !== undefined ?
@@ -44,7 +44,8 @@ class Post extends Component {
 
   redner_location() {
     const {content: {location}} = this.props;
-    return <PostField data={location} className='post-location'>
+    if (isEmpty(location)) return <div></div>;
+    return <PostField data={location} className='post-activity'>
       <div>
         Checked in at - {
         !isEmpty(location.id) ?
@@ -55,13 +56,37 @@ class Post extends Component {
     </PostField>
   }
 
-  redner_watching() {
+  render_watching() {
     const {content: {movie}} = this.props;
-    return <PostField data={movie} className='post-watching'>
-      <div>
+    if (isEmpty(movie)) return <div></div>;
+    return <PostField data={movie} className='post-activity'>
+      { !isEmpty(movie.img) ?
+        <div className="activity-image">
+          <img src={movie.img}/>
+        </div> : ''
+      }
+      <div className={'text-center'}>
         Watching - { !isEmpty(movie.id) ?
         <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.text}</a>
-        : movie.title
+        : movie.text
+      }
+      </div>
+    </PostField>
+  }
+
+  render_listening() {
+    const {content: {music}} = this.props;
+    if (isEmpty(music)) return <div></div>;
+    return <PostField data={music} className='post-activity'>
+      { !isEmpty(music.img) ?
+        <div className="activity-image">
+          <img src={music.img}/>
+        </div> : ''
+      }
+      <div className={'text-center'}>
+        Listening to - { !isEmpty(music.id) ?
+        <a href={music.url} target="_blank" rel="noopener noreferrer">{music.text}</a>
+        : music.text
       }
       </div>
     </PostField>
@@ -91,7 +116,8 @@ class Post extends Component {
           </section>
           <section className="post-body">
             {this.redner_location()}
-            {this.redner_watching()}
+            {this.render_watching()}
+            {this.render_listening()}
             <div className="post-text">{content.text}</div>
             {images}
           </section>

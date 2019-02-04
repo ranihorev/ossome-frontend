@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './MovieField.scss';
+import './MusicField.scss';
 import '../BaseField/BaseField.scss';
 import BaseField from "../BaseField/BaseField";
 import {isEmpty} from "lodash";
@@ -25,11 +25,11 @@ export default class LocationField extends Component {
   render() {
     return (
       <BaseField
-        endpointURL={'v1/posts/search_movies/'}
-        wrapperClass={'movie-field'}
-        placeholder={'What are you watching?'}
-        collapsedText={'Watching'}
-        fieldIcon={'fal fa-film'}
+        endpointURL={'v1/posts/search_music/'}
+        wrapperClass={'music-field'}
+        placeholder={'What are you listening to?'}
+        collapsedText={'Listening'}
+        fieldIcon={'fal fa-headphones-alt'}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         renderSuggestion={this.renderSuggestion}
         {...this.props}
