@@ -38,9 +38,9 @@ class Register extends Component {
         <Container className="base-container">
           <Row className="justify-content-center">
             <Col xs="12" md="6" lg="5">
-              <h3 className={'text-center'}>Join Ossome</h3>
+              <h3 className="auth-title">Join Ossome</h3>
               <div class="slogan">
-                Open-Source social network<br/>
+                Open-Source Social Network<br/>
                 Share movies, music, restaurants & more with your friends
               </div>
               <Form className="form" onSubmit={this.submit}>

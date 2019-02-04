@@ -35,8 +35,12 @@ class Login extends Component {
         <BaseNavbar/>
         <Container className="base-container">
           <Row className="justify-content-center">
-            <Col xs="12" md="8" lg="7">
-              <h3 className={'text-center'}>Sign In</h3>
+            <Col xs="12" md="6" lg="5">
+              <h3 className="auth-title">Sign In</h3>
+              <div class="slogan">
+                Open-Source Social Network<br/>
+                Share movies, music, restaurants & more with your friends
+              </div>
               <Form className="form" onSubmit={this.submit}>
                 <FormGroup>
                   <Input type="email" name="email" id="email"

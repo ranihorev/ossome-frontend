@@ -14,7 +14,7 @@
 
 .slogan {
   text-align: center;
-  padding: 15px 0 25px 0;
+  margin-bottom: 25px;
   font-size: 0.9rem;
   font-family: 'Montserrat', sans-serif;
 }
@@ -22,4 +22,9 @@
 .ossome-button {
   background-color: #009e00;
   border-color: #009e00;
+}
+
+.auth-title {
+  margin-bottom: 25px;
+  text-align: center;
 }
