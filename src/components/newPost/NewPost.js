@@ -21,7 +21,7 @@ class NewPostForm extends Component {
     return (
       <Form className="new-post-form" onSubmit={handleSubmit}>
         <Field component={MovieField} name="movie"/>
-        <Field name="location" component={LocationField}/>
+        <Field component={LocationField} name="location"/>
         <Field component={TextWrapper} name="text" id="text" className="form-control text-field" placeholder="Write something"/>
         <Field component={ImageUpload} name="images" is_submitting={submitting}/>
         <div className={'text-center'}>

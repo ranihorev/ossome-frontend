@@ -8,7 +8,6 @@ import PostsList from "../components/postsList/PostsList";
 class Home extends Component {
 
   render() {
-    const {posts} = this.props;
     return (
       <div>
         <BaseNavbar/>

@@ -29,11 +29,11 @@ class Post extends Component {
 
   redner_watching() {
     const {content: {movie}} = this.props;
-    if (isEmpty(movie) || isEmpty(movie.title)) return <div></div>
+    if (isEmpty(movie) || isEmpty(movie.text)) return <div></div>
     return <div className="post-watching">
       <div>
         Watching - { !isEmpty(movie.id) ?
-        <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.title}</a>
+        <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.text}</a>
         : movie.title
       }
       </div>

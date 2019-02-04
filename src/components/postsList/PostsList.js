@@ -32,6 +32,10 @@ class PostsList extends Component {
   }
 }
 
+PostsList.propTypes = {
+  posts: PropTypes.object
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {
     posts: state.posts
