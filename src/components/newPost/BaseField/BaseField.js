@@ -73,7 +73,7 @@ class BaseField extends Component {
         }
       </InputGroupAddon>
       {
-        this.state.expanded ? <Input {...inputProps}/> : ''
+        this.state.expanded ? <Input autoFocus {...inputProps}/> : ''
       }
     </InputGroup>
   );

@@ -19,11 +19,25 @@ class Post extends Component {
     const {content: {location}} = this.props;
     if (isEmpty(location) || isEmpty(location.text)) return <div></div>
     return <div className="post-location">
-      Checked in at - {
-      !isEmpty(location.id) ?
-        <a href={GOOGLE_LINK + location.id} target="_blank" rel="noopener noreferrer">{location.text}</a>
-        : location.text
-    }
+      <div>
+        Checked in at - {
+        !isEmpty(location.id) ?
+          <a href={GOOGLE_LINK + location.id} target="_blank" rel="noopener noreferrer">{location.text}</a>
+          : location.text
+      }
+      </div>
+      {
+        location.rating !== undefined ?
+          <div className="text-center mt-2">
+            <Rating
+              className="field-rating"
+              emptySymbol="fas fa-star star-empty"
+              fullSymbol="fas fa-star star-full"
+              fractions={2}
+              readonly={true}
+              initialRating={location.rating}
+            /></div> : ''
+      }
     </div>
   }
 
@@ -41,7 +55,7 @@ class Post extends Component {
         movie.rating !== undefined ?
           <div className="text-center mt-2">
           <Rating
-            className="movie-rating"
+            className="field-rating"
             emptySymbol="fas fa-star star-empty"
             fullSymbol="fas fa-star star-full"
             fractions={2}
