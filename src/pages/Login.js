@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Row, Col, FormGroup, Label, Input, Button, Form} from "reactstrap";
+import {Container, Row, Col, FormGroup, Input, Button, Form} from "reactstrap";
 import BaseNavbar from "../components/navbar/navbar";
 import {loginRegisterAction} from "../actions/action_user";
 import {connect} from "react-redux";

@@ -12,7 +12,7 @@ export default class LocationField extends Component {
         <tbody>
         <tr>
           <td className="thumb">
-            {(!isEmpty(suggestion.img)) ? <img src={suggestion.img}/> : ""}
+            {(!isEmpty(suggestion.img)) ? <img src={suggestion.img} alt="Music thumb"/> : ""}
           </td>
           <td className="align-middle">{suggestion.text}</td>
         </tr>

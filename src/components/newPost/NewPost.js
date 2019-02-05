@@ -11,7 +11,7 @@ import MovieField from "./Movie/MovieField";
 import Loader from './loading.gif';
 import MusicField from "./Music/MusicField";
 
-export const FORM_NAME = 'newPost';
+export const FORM_NAME = 'NEW_POST';
 
 const TextWrapper = ({input, id, className, required, placeholder}) => {
   return <TextareaAutosize minRows={3} id={id} className={className} required={required} placeholder={placeholder} {...input}/>;
@@ -60,12 +60,6 @@ class NewPost extends Component {
   }
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    posts: state.posts
-  }
-}
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addNewPost: (post) => {
@@ -75,4 +69,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (NewPost);
+export default connect(null, mapDispatchToProps) (NewPost);

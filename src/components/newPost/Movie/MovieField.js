@@ -4,7 +4,7 @@ import '../BaseField/BaseField.scss';
 import BaseField from "../BaseField/BaseField";
 import {isEmpty} from "lodash";
 
-export default class LocationField extends Component {
+export default class MovieField extends Component {
 
   renderSuggestion = suggestion => (
     <div>
@@ -12,7 +12,7 @@ export default class LocationField extends Component {
         <tbody>
         <tr>
           <td className="thumb">
-            {(!isEmpty(suggestion.img)) ? <img src={suggestion.img}/> : ""}
+            {(!isEmpty(suggestion.img)) ? <img src={suggestion.img} alt="Movie thumb"/> : ""}
           </td>
           <td className="align-middle">{suggestion.text}</td>
         </tr>
