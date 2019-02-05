@@ -29,7 +29,7 @@ export default class MovieField extends Component {
         wrapperClass={'movie-field'}
         placeholder={'What are you watching?'}
         collapsedText={'Watching'}
-        fieldIcon={'fal fa-film'}
+        fieldIcon={'🎥'}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         renderSuggestion={this.renderSuggestion}
         {...this.props}

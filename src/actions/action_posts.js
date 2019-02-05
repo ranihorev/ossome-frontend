@@ -15,6 +15,7 @@ export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
 export const NEW_COMMENT = 'NEW_COMMENT';
 
+
 export const fetchPostsAction = (params={}) => {
   return (dispatch) => {
     return auth_axios.get('/v1/posts/', {params: params})
@@ -58,7 +59,6 @@ export const addNewPost = (content) => {
       })
       .catch(error => {
         console.log(error);
-        Promise.resolve();
       });
   }
 };

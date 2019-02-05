@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 body {
   margin: 0;
   padding: 0;
@@ -21,8 +23,8 @@ a, button {
 }
 
 .ossome-button, .ossome-button:disabled  {
-  background-color: #009e00;
-  border-color: #009e00;
+  background-color: $base-color;
+  border-color: $base-color;
   border-radius: 15px;
 }
 

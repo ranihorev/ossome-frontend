@@ -31,7 +31,7 @@ export default class LocationField extends Component {
         wrapperClass={'location-field'}
         placeholder={'Where are you?'}
         collapsedText={'Location'}
-        fieldIcon={'fal fa-map-marker-alt'}
+        fieldIcon={'🗺️'}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         renderSuggestion={this.renderSuggestion}
         {...this.props}

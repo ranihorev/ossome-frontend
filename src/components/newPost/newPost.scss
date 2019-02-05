@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .new-post-form {
   button[type='submit'] {
     margin-top: 20px;
@@ -9,5 +11,20 @@
 
   .text-field {
     margin-bottom: 16px;
+  }
+
+  .field-buttons {
+    text-align: center;
+    margin-bottom: 16px;
+
+    button {
+      margin: 0 5px;
+      border-color: $base-color;
+      border-radius: 1rem;
+
+      &:hover {
+        background-color: $base-color;
+      }
+    }
   }
 }

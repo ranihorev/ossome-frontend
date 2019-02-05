@@ -13,7 +13,6 @@ class BaseField extends Component {
 
     this.state = {
       suggestions: [],
-      expanded: false
     }
   }
 
@@ -55,26 +54,16 @@ class BaseField extends Component {
 
   onSuggestionsClearRequested = () => {};
 
-  toggleExpanded = () => {
-    this.setState({expanded: !this.state.expanded});
-  };
-
   renderInputComponent = inputProps => (
     <InputGroup>
       <InputGroupAddon addonType="prepend">
         <InputGroupText>
-          <i className={this.props.fieldIcon}></i>
+          {this.props.fieldIcon}
         </InputGroupText>
-        {
-          !this.state.expanded ?
-            <InputGroupText className="activity-title-collapsed" onClick={this.toggleExpanded}>
-              {this.props.collapsedText}
-            </InputGroupText> : ''
-        }
       </InputGroupAddon>
-      {
-        this.state.expanded ? <Input autoFocus {...inputProps}/> : ''
-      }
+
+      <Input autoFocus {...inputProps}/>
+
     </InputGroup>
   );
 
@@ -90,10 +79,8 @@ class BaseField extends Component {
       onKeyDown: this.onKeyDown
     };
 
-    const {expanded} = this.state;
-
     return (
-      <div className={`base-field ${wrapperClass} ${!expanded ? 'collapsed' : ''}`}>
+      <div className={`base-field ${wrapperClass}`}>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

@@ -29,7 +29,7 @@ export default class LocationField extends Component {
         wrapperClass={'music-field'}
         placeholder={'What are you listening to?'}
         collapsedText={'Listening'}
-        fieldIcon={'fal fa-headphones-alt'}
+        fieldIcon={'🎧'}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         renderSuggestion={this.renderSuggestion}
         {...this.props}
