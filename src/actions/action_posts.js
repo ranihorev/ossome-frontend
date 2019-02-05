@@ -1,5 +1,5 @@
 import {auth_axios} from "../api";
-import {reset} from "redux-form";
+import {reset, SubmissionError} from "redux-form";
 import {FORM_NAME} from "../components/newPost/NewPost";
 import {cloneDeep} from "lodash";
 
@@ -57,8 +57,8 @@ export const addNewPost = (content) => {
         dispatch(addNewPostSuccess(response.data.post));
         dispatch(reset(FORM_NAME));
       })
-      .catch(error => {
-        console.log(error);
+      .catch((error) => {
+        throw new SubmissionError(error.response.data);
       });
   }
 };

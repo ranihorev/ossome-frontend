@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Form} from "reactstrap";
 import LocationField from "./Location/LocationField";
-import {Field, reduxForm, startSubmit, change} from "redux-form";
+import {Field, reduxForm, startSubmit, change, getFormSubmitErrors} from "redux-form";
 import './newPost.scss';
 import {connect} from "react-redux";
 import {addNewPost} from "../../actions/action_posts";
@@ -11,6 +11,7 @@ import MovieField from "./Movie/MovieField";
 import Loader from './loading.gif';
 import MusicField from "./Music/MusicField";
 import DirectionProvider from "../DirectionProvider";
+import {isEmpty} from "lodash";
 
 
 export const FORM_NAME = 'NEW_POST';
@@ -46,10 +47,11 @@ class NewPostForm extends Component {
   }
 
   render() {
-    const {handleSubmit, pristine, submitting} = this.props;
+    const {handleSubmit, pristine, submitting, addNewPost, submitErrors} = this.props;
     const {active} = this.state;
+    console.log(submitErrors);
     return (
-      <Form className="new-post-form" onSubmit={handleSubmit}>
+      <Form className="new-post-form" onSubmit={handleSubmit(addNewPost)}>
         <div className="field-buttons">
           {fields.map((f, idx) => <Button outline key={idx} onClick={() => this.toggleField(f.name)}>{f.text}</Button>)}
         </div>
@@ -65,39 +67,39 @@ class NewPostForm extends Component {
           </div> :
           ""
         }
+        {
+          !isEmpty(submitErrors) ?
+            <div className="errors">{submitErrors.message}</div> :
+            ""
+        }
       </Form>
     )
   }
 }
 
-
-const NewPostFormRedux = reduxForm({
-  form: FORM_NAME,
-  initialValues: {
-    images: []
-  }
-})(NewPostForm);
-
-
-class NewPost extends Component {
-  render() {
-    return (
-      <NewPostFormRedux onSubmit={this.props.addNewPost} clearInput={this.props.clearInput}/>
-    );
-  }
-};
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addNewPost: (post) => {
-      dispatch(startSubmit(FORM_NAME)).catch(err => console.log(err));
-      dispatch(addNewPost(post));
-    },
-
     clearInput: (field) => {
       dispatch(change(FORM_NAME, field, ''));
+    },
+    addNewPost: (post) => {
+      dispatch(startSubmit(FORM_NAME));
+      return dispatch(addNewPost(post));
     }
   }
 }
 
-export default connect(null, mapDispatchToProps) (NewPost);
+const mapStateToProps = (state) => {
+  return {
+    submitErrors: getFormSubmitErrors(FORM_NAME)(state)
+  }
+}
+
+const NewPost = connect(mapStateToProps, mapDispatchToProps) (NewPostForm);
+
+export default reduxForm({
+  form: FORM_NAME,
+  initialValues: {
+    images: []
+  }
+})(NewPost);
