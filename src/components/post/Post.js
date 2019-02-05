@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import NewComment from "../newComment/NewComment";
 import CommentsList from "./Comment";
+import DirectionProvider from "../DirectionProvider";
 
 const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
 const TMDB_LINK = 'https://www.themoviedb.org';
@@ -105,6 +106,7 @@ class Post extends Component {
     if (!isEmpty(images_data)) {
       images = <ImageGallery items={images_data} showPlayButton={false} showThumbnails={false} showFullscreenButton={false}/>;
     }
+
     return (
       <Card className="panel-default post">
         <CardBody>
@@ -124,7 +126,9 @@ class Post extends Component {
             {this.redner_location()}
             {this.render_watching()}
             {this.render_listening()}
-            <div className="post-text">{content.text}</div>
+            <DirectionProvider text={content.text}>
+              <div className="post-text">{content.text}</div>
+            </DirectionProvider>
             {images}
           </section>
           <section className="post-footer">

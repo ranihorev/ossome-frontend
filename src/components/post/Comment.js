@@ -1,5 +1,7 @@
 import React from 'react';
 import './comment.scss';
+import DirectionProvider from "../DirectionProvider";
+
 
 export default function CommentsList(props) {
   const {comments} = props;

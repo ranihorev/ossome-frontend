@@ -10,12 +10,18 @@ import ImageUpload from "./ImageUpload/ImageUpload";
 import MovieField from "./Movie/MovieField";
 import Loader from './loading.gif';
 import MusicField from "./Music/MusicField";
+import DirectionProvider from "../DirectionProvider";
 
 export const FORM_NAME = 'NEW_POST';
 
 const TextWrapper = ({input, id, className, required, placeholder}) => {
-  return <TextareaAutosize minRows={3} id={id} className={className} required={required} placeholder={placeholder} {...input}/>;
+  return (
+    <DirectionProvider text={input.value}>
+      <TextareaAutosize minRows={3} id={id} className={className} required={required} placeholder={placeholder} {...input}/>
+    </DirectionProvider>
+  )
 };
+
 class NewPostForm extends Component {
   render() {
     const {handleSubmit, pristine, submitting} = this.props;

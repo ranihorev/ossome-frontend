@@ -5,6 +5,7 @@ import {Button, Form} from "reactstrap";
 import {connect} from "react-redux";
 import {addNewComment, NEW_COMMENT} from "../../actions/action_posts";
 import {isEmpty} from "lodash";
+import DirectionProvider from "../DirectionProvider";
 
 class NewComment extends Component {
 
@@ -48,19 +49,22 @@ class NewComment extends Component {
   };
 
   render() {
+    const {text} = this.state;
     return (
       <Form className={'new-comment'} onSubmit={this.submit}>
-        <TextareaAutosize
-          minRows={1}
-          className={'form-control'}
-          required={true}
-          id="text"
-          placeholder={'Write a comment'}
-          onChange={this.handleChange}
-          onFocus={this.toggleSubmit}
-          onBlur={this.toggleSubmit}
-          value={this.state.text}
-        />
+        <DirectionProvider text={text}>
+          <TextareaAutosize
+            minRows={1}
+            className={'form-control'}
+            required={true}
+            id="text"
+            placeholder={'Write a comment'}
+            onChange={this.handleChange}
+            onFocus={this.toggleSubmit}
+            onBlur={this.toggleSubmit}
+            value={text}
+          />
+        </DirectionProvider>
         {this.state.showSubmit ?
           <div className={'text-right'}>
             <Button className={'btn-sm ossome-button'} color="primary" type="submit" disabled={isEmpty(this.state.text)}>
