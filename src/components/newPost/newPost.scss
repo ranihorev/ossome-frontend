@@ -22,9 +22,15 @@
       border-color: $base-color;
       border-radius: 1rem;
 
+      @media only screen and (max-width: 576px) {
+        font-size: 0.85rem;
+        margin: 5px 2px 0 2px;
+      }
+
       &:hover {
         background-color: $base-color;
       }
+
     }
   }
 
