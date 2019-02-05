@@ -1,6 +1,11 @@
 .new-comment {
   textarea {
     border-radius: 6px;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   button[type='submit'] {

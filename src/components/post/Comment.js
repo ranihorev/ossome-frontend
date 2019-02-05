@@ -1,14 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './comment.scss';
 
-export default function Comment(props) {
+export default function CommentsList(props) {
+  const {comments} = props;
+  return (
+    <div className="comments-list">
+      {comments.map((c, idx) => <Comment key={idx} data={c}/>)}
+    </div>
+  )
+}
+
+function Comment(props) {
   const {data} = props;
   return (
     <div className="comment">
-      <div className="comment-user">{data.user.first_name} {data.user.last_name}</div>
-      <div className="comment-text">
+      <span className="comment-user">{data.user.first_name} {data.user.last_name}</span>
+      <span className="comment-text">
         {data.text}
-      </div>
+      </span>
     </div>
   )
 };

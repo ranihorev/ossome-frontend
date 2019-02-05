@@ -29,7 +29,7 @@ export default function postsReducer (state = initialState, action) {
       const post = newState.data.find((p) => p._id === action.payload.post);
       post.comments.push(action.payload.comment);
       return {data: newState.data,
-        lastAction: {type: NEW_COMMENT, comment_id: action.payload.comment._id},
+        lastAction: {type: NEW_COMMENT, comment_id: action.payload.comment.id, post_id: action.payload.post},
         errors: {}
       };
 

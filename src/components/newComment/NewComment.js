@@ -3,42 +3,79 @@ import TextareaAutosize from "react-textarea-autosize";
 import './NewComment.scss';
 import {Button, Form} from "reactstrap";
 import {connect} from "react-redux";
-import {addNewComment} from "../../actions/action_posts";
+import {addNewComment, NEW_COMMENT} from "../../actions/action_posts";
+import {isEmpty} from "lodash";
 
 class NewComment extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      showSubmit: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    const {post, posts: {lastAction}} = this.props;
+    const newAction = nextProps.posts.lastAction;
+    console.log('here')
+    console.log(newAction.type === NEW_COMMENT)
+    console.log(newAction.post_id === post)
+    console.log(newAction.comment_id !== lastAction.comment_id)
+    if (newAction.type === NEW_COMMENT && newAction.post_id === post && newAction.comment_id !== lastAction.comment_id) {
+      console.log('yay');
+      this.setState({text: '', showSubmit: false});
     }
   }
 
   submit = (e) => {
     e.preventDefault();
+    const content = { ...this.state };
+    delete content.showSubmit;
     const comment = {content: this.state, post: this.props.post};
-    console.log(comment);
     this.props.addNewComment(comment);
-  }
+  };
 
   handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value
     });
-  }
+  };
+
+  toggleSubmit = (e) => {
+    this.setState({showSubmit: !isEmpty(this.state.text) || e.type === 'focus'});
+  };
 
   render() {
     return (
       <Form className={'new-comment'} onSubmit={this.submit}>
         <TextareaAutosize
-          minRows={1} className={'form-control'} required={true} id="text"
-          placeholder={'Write a comment'} onChange={this.handleChange}
+          minRows={1}
+          className={'form-control'}
+          required={true}
+          id="text"
+          placeholder={'Write a comment'}
+          onChange={this.handleChange}
+          onFocus={this.toggleSubmit}
+          onBlur={this.toggleSubmit}
+          value={this.state.text}
         />
-        <div className={'text-right'}>
-          <Button className={'btn-sm ossome-button'} color="primary" type="submit">Submit</Button>
-        </div>
+        {this.state.showSubmit ?
+          <div className={'text-right'}>
+            <Button className={'btn-sm ossome-button'} color="primary" type="submit" disabled={isEmpty(this.state.text)}>
+              Submit
+            </Button>
+          </div> : ''
+        }
       </Form>
     )
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    posts: state.posts
   }
 }
 
@@ -50,4 +87,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(null, mapDispatchToProps) (NewComment);
+export default connect(mapStateToProps, mapDispatchToProps) (NewComment);

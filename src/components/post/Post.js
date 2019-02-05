@@ -11,7 +11,7 @@ import DeletePost from "./DeletePost";
 import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import NewComment from "../newComment/NewComment";
-import Comment from './Comment';
+import CommentsList from "./Comment";
 
 const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
 const TMDB_LINK = 'https://www.themoviedb.org';
@@ -42,15 +42,6 @@ PostField.propTypes = {
   children: PropTypes.element.isRequired
 }
 
-function CommentsList(props) {
-  const {comments} = props;
-  return (
-    <div>
-      {comments.map((c, idx) => <Comment key={idx} data={c}/>)}
-    </div>
-  )
-}
-
 class Post extends Component {
 
   redner_location() {
@@ -74,7 +65,7 @@ class Post extends Component {
       <div>
         { !isEmpty(movie.img) ?
           <div className="activity-image">
-            <img src={movie.img}/>
+            <img src={movie.img} alt="Movie thumb"/>
           </div> : ''
         }
         <div className={'text-center'}>
@@ -94,7 +85,7 @@ class Post extends Component {
       <div>
         { !isEmpty(music.img) ?
           <div className="activity-image">
-            <img src={music.img}/>
+            <img src={music.img} alt="Music thumb"/>
           </div> : ''
         }
         <div className={'text-center'}>
@@ -138,10 +129,10 @@ class Post extends Component {
           </section>
           <section className="post-footer">
             <hr/>
-              <div className="post-footer-option">
-                <CommentsList comments={content.comments}/>
-                <NewComment post={content._id}/>
-              </div>
+            <div className="post-footer-option">
+              <CommentsList comments={content.comments}/>
+              <NewComment post={content._id}/>
+            </div>
           </section>
         </CardBody>
       </Card>
