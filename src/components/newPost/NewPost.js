@@ -27,7 +27,7 @@ class NewPostForm extends Component {
         <Field component={TextWrapper} name="text" id="text" className="form-control text-field" placeholder="Write something"/>
         <Field component={ImageUpload} name="images" is_submitting={submitting}/>
         <div className={'text-center'}>
-          <Button color="primary" type="submit" disabled={pristine || submitting}>Submit</Button>
+          <Button color="primary ossome-button" type="submit" disabled={pristine || submitting}>Submit</Button>
         </div>
         { submitting ?
           <div className={'text-center'}>

@@ -7,12 +7,13 @@ export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE';
 
-export const ADD_NEW_POST = 'ADD_NEW_POST';
+export const NEW_POST = 'NEW_POST';
 
 export const DELETE_POST = 'DELETE_POST';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
+export const NEW_COMMENT = 'NEW_COMMENT';
 
 export const fetchPostsAction = (params={}) => {
   return (dispatch) => {
@@ -62,9 +63,29 @@ export const addNewPost = (content) => {
   }
 };
 
+export const addNewComment = (comment) => {
+  return (dispatch) => {
+    return auth_axios.post(`/v1/posts/new_comment/`, comment)
+      .then(res => {
+        dispatch(addNewCommentSuccess(res.data))
+      })
+      .catch(err => {
+        console.log(err);
+        Promise.resolve();
+      });
+  };
+}
+
+const addNewCommentSuccess = (comment) => {
+  return {
+    type: NEW_COMMENT,
+    payload: comment
+  }
+}
+
 const addNewPostSuccess = (post) => {
   return {
-    type: ADD_NEW_POST,
+    type: NEW_POST,
     payload: post
   }
 };
@@ -94,3 +115,4 @@ const deletePostFailure = (error) => {
     payload: error
   }
 };
+

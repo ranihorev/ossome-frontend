@@ -19,3 +19,9 @@ a, button {
 .base-container {
   margin-top: 20px;
 }
+
+.ossome-button, .ossome-button:disabled  {
+  background-color: #009e00;
+  border-color: #009e00;
+  border-radius: 15px;
+}

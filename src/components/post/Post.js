@@ -10,6 +10,8 @@ import Rating from "react-rating";
 import DeletePost from "./DeletePost";
 import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
+import NewComment from "../newComment/NewComment";
+import Comment from './Comment';
 
 const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
 const TMDB_LINK = 'https://www.themoviedb.org';
@@ -40,6 +42,15 @@ PostField.propTypes = {
   children: PropTypes.element.isRequired
 }
 
+function CommentsList(props) {
+  const {comments} = props;
+  return (
+    <div>
+      {comments.map((c, idx) => <Comment key={idx} data={c}/>)}
+    </div>
+  )
+}
+
 class Post extends Component {
 
   redner_location() {
@@ -60,16 +71,18 @@ class Post extends Component {
     const {content: {movie}} = this.props;
     if (isEmpty(movie)) return <div></div>;
     return <PostField data={movie} className='post-activity'>
-      { !isEmpty(movie.img) ?
-        <div className="activity-image">
-          <img src={movie.img}/>
-        </div> : ''
-      }
-      <div className={'text-center'}>
-        Watching - { !isEmpty(movie.id) ?
-        <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.text}</a>
-        : movie.text
-      }
+      <div>
+        { !isEmpty(movie.img) ?
+          <div className="activity-image">
+            <img src={movie.img}/>
+          </div> : ''
+        }
+        <div className={'text-center'}>
+          Watching - { !isEmpty(movie.id) ?
+          <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.text}</a>
+          : movie.text
+        }
+        </div>
       </div>
     </PostField>
   }
@@ -78,16 +91,18 @@ class Post extends Component {
     const {content: {music}} = this.props;
     if (isEmpty(music)) return <div></div>;
     return <PostField data={music} className='post-activity'>
-      { !isEmpty(music.img) ?
-        <div className="activity-image">
-          <img src={music.img}/>
-        </div> : ''
-      }
-      <div className={'text-center'}>
-        Listening to - { !isEmpty(music.id) ?
-        <a href={music.url} target="_blank" rel="noopener noreferrer">{music.text}</a>
-        : music.text
-      }
+      <div>
+        { !isEmpty(music.img) ?
+          <div className="activity-image">
+            <img src={music.img}/>
+          </div> : ''
+        }
+        <div className={'text-center'}>
+          Listening to - { !isEmpty(music.id) ?
+          <a href={music.url} target="_blank" rel="noopener noreferrer">{music.text}</a>
+          : music.text
+        }
+        </div>
       </div>
     </PostField>
   }
@@ -124,10 +139,8 @@ class Post extends Component {
           <section className="post-footer">
             <hr/>
               <div className="post-footer-option">
-                <ul className="list-unstyled">
-                  <li><a href="#"><i className="fal fa-thumbs-up"></i> Like</a></li>
-                  <li><a href="#"><i className="fal fa-comment"></i> Comment</a></li>
-                </ul>
+                <CommentsList comments={content.comments}/>
+                <NewComment post={content._id}/>
               </div>
           </section>
         </CardBody>
