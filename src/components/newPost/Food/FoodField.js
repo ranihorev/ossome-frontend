@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import './LocationField.scss';
+import './FoodField.scss';
 import googleAttr from './powered_by_google.png';
 import '../BaseField/BaseField.scss';
 import BaseField from "../BaseField/BaseField";
 
-export default class LocationField extends Component {
+export default class FoodField extends Component {
 
   renderSuggestion = suggestion => (
     <div>
@@ -27,10 +27,10 @@ export default class LocationField extends Component {
   render() {
     return (
       <BaseField
-        endpointURL={'v1/posts/autocomplete_places/'}
-        wrapperClass={'location-field'}
-        placeholder={'Where are you?'}
-        fieldIcon={'🗺️'}
+        endpointURL={'v1/posts/autocomplete_places/?establishment=1'}
+        wrapperClass={'food-field'}
+        placeholder={'Where are you eating?'}
+        fieldIcon={'🍽️️'}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         renderSuggestion={this.renderSuggestion}
         {...this.props}

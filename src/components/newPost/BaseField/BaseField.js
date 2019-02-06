@@ -116,7 +116,6 @@ BaseField.propTypes = {
   wrapperClass: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   fieldIcon: PropTypes.string.isRequired,
-  collapsedText: PropTypes.string.isRequired
 }
 
 BaseField.defaultProps = {

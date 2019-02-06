@@ -45,6 +45,20 @@ PostField.propTypes = {
 
 class Post extends Component {
 
+  render_eating() {
+    const {content: {food}} = this.props;
+    if (isEmpty(food)) return <div></div>;
+    return <PostField data={food} className='post-activity'>
+      <div>
+        Eating at - {
+        !isEmpty(food.id) ?
+          <a href={GOOGLE_LINK + food.id} target="_blank" rel="noopener noreferrer">{food.text}</a>
+          : food.text
+      }
+      </div>
+    </PostField>
+  }
+
   redner_location() {
     const {content: {location}} = this.props;
     if (isEmpty(location)) return <div></div>;
@@ -126,6 +140,7 @@ class Post extends Component {
             {this.redner_location()}
             {this.render_watching()}
             {this.render_listening()}
+            {this.render_eating()}
             <DirectionProvider text={content.text}>
               <div className="post-text">{content.text}</div>
             </DirectionProvider>

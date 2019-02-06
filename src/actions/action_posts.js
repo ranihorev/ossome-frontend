@@ -1,7 +1,7 @@
 import {auth_axios} from "../api";
 import {reset, SubmissionError} from "redux-form";
 import {FORM_NAME} from "../components/newPost/NewPost";
-import {cloneDeep} from "lodash";
+import {cloneDeep, isEmpty} from "lodash";
 
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
@@ -58,7 +58,10 @@ export const addNewPost = (content) => {
         dispatch(reset(FORM_NAME));
       })
       .catch((error) => {
-        throw new SubmissionError(error.response.data);
+        if (!isEmpty(error.response))
+          throw new SubmissionError(error.response.data);
+        else
+          throw new SubmissionError({message: 'Failed to reach server'});
       });
   }
 };

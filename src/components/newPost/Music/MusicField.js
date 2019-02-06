@@ -28,7 +28,6 @@ export default class LocationField extends Component {
         endpointURL={'v1/posts/search_music/'}
         wrapperClass={'music-field'}
         placeholder={'What are you listening to?'}
-        collapsedText={'Listening'}
         fieldIcon={'🎧'}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         renderSuggestion={this.renderSuggestion}

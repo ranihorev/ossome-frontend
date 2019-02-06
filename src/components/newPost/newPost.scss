@@ -1,5 +1,7 @@
 @import '../../variables.scss';
 
+$field-btn-size: 46px;
+
 .new-post-form {
   button[type='submit'] {
     margin-top: 20px;
@@ -19,8 +21,11 @@
 
     button {
       margin: 0 5px;
+      padding: .375rem .70rem .375rem .8rem;
       border-color: $base-color;
-      border-radius: 1rem;
+      width: $field-btn-size;
+      height: $field-btn-size;
+      border-radius: $field-btn-size / 2;
 
       @media only screen and (max-width: 576px) {
         font-size: 0.85rem;

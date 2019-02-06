@@ -28,7 +28,6 @@ export default class MovieField extends Component {
         endpointURL={'v1/posts/search_movies/'}
         wrapperClass={'movie-field'}
         placeholder={'What are you watching?'}
-        collapsedText={'Watching'}
         fieldIcon={'🎥'}
         renderSuggestionsContainer={this.renderSuggestionsContainer}
         renderSuggestion={this.renderSuggestion}

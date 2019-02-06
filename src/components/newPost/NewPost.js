@@ -12,6 +12,7 @@ import Loader from './loading.gif';
 import MusicField from "./Music/MusicField";
 import DirectionProvider from "../DirectionProvider";
 import {isEmpty} from "lodash";
+import FoodField from "./Food/FoodField";
 
 
 export const FORM_NAME = 'NEW_POST';
@@ -25,9 +26,10 @@ const TextWrapper = ({input, id, className, required, placeholder}) => {
 };
 
 const fields = [
-  {text: '🎥 Watching', component: MovieField, name: 'movie'},
-  {text: '🗺️ Location', component: LocationField, name: 'location'},
-  {text: '🎧 Listening', component: MusicField, name: 'music'},
+  {text: '🎥', component: MovieField, name: 'movie'},
+  {text: '🗺️', component: LocationField, name: 'location'},
+  {text: '🎧', component: MusicField, name: 'music'},
+  {text: '🍽️', component: FoodField, name: 'food'},
 ];
 
 class NewPostForm extends Component {
@@ -49,7 +51,6 @@ class NewPostForm extends Component {
   render() {
     const {handleSubmit, pristine, submitting, addNewPost, submitErrors} = this.props;
     const {active} = this.state;
-    console.log(submitErrors);
     return (
       <Form className="new-post-form" onSubmit={handleSubmit(addNewPost)}>
         <div className="field-buttons">
