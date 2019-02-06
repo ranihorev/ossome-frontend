@@ -6,13 +6,19 @@ import PropTypes from 'prop-types';
 import {fetchPostsAction} from "../../actions/action_posts";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {isEmpty} from "lodash";
+import {isEmpty, isEqual} from "lodash";
 
 
 class PostsList extends Component {
 
   componentDidMount() {
     this.props.fetchPosts(this.props.match.params);
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (!isEqual(nextProps.match.params, this.props.match.params)) {
+      this.props.fetchPosts(nextProps.match.params);
+    }
   }
 
   render() {

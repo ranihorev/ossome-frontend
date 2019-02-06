@@ -3,6 +3,7 @@ import {Container, Row, Col} from "reactstrap";
 import BaseNavbar from "../components/navbar/navbar";
 import NewPost from "../components/newPost/NewPost";
 import PostsList from "../components/postsList/PostsList";
+import FilterPosts from "../components/postsList/FilterPosts";
 
 
 class Home extends Component {
@@ -15,7 +16,8 @@ class Home extends Component {
           <Row className="justify-content-center">
             <Col xs="12" md="8" lg="7">
               <NewPost/>
-              <PostsList/>
+              <FilterPosts/>
+              <PostsList {...this.props}/>
             </Col>
           </Row>
         </Container>
