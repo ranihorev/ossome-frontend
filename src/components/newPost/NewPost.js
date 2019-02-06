@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import {Button, Form} from "reactstrap";
-import LocationField from "./Location/LocationField";
+import LocationField from "../Fields/Location/LocationField";
 import {Field, reduxForm, startSubmit, change, getFormSubmitErrors} from "redux-form";
 import './newPost.scss';
 import {connect} from "react-redux";
 import {addNewPost} from "../../actions/action_posts";
 import TextareaAutosize from "react-textarea-autosize";
-import ImageUpload from "./ImageUpload/ImageUpload";
-import MovieField from "./Movie/MovieField";
+import ImageUpload from "../Fields/ImageUpload/ImageUpload";
+import MovieField from "../Fields/Movie/MovieField";
 import Loader from './loading.gif';
-import MusicField from "./Music/MusicField";
+import MusicField from "../Fields/Music/MusicField";
 import DirectionProvider from "../DirectionProvider";
 import {isEmpty} from "lodash";
-import FoodField from "./Food/FoodField";
+import FoodField from "../Fields/Food/FoodField";
 
 
 export const FORM_NAME = 'NEW_POST';

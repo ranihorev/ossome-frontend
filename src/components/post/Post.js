@@ -6,112 +6,15 @@ import get_age from "../timeUtils";
 import {isEmpty} from "lodash";
 import {connect} from "react-redux";
 import ImageGallery from "react-image-gallery";
-import Rating from "react-rating";
 import DeletePost from "./DeletePost";
 import {Link} from "react-router-dom";
-import PropTypes from 'prop-types';
 import NewComment from "../newComment/NewComment";
 import CommentsList from "./Comment";
 import DirectionProvider from "../DirectionProvider";
+import PostField from "../Fields/BaseField/BaseRender";
 
-const GOOGLE_LINK = 'https://www.google.com/maps/search/?q=place_id:';
-const TMDB_LINK = 'https://www.themoviedb.org';
-
-function PostField(props) {
-  const {data} = props
-  if (isEmpty(data) || isEmpty(data.text)) return <div></div>
-  return <div className={props.className}>
-    {props.children}
-    {
-      data.rating !== undefined ?
-        <div className="text-center mt-2">
-          <Rating
-            className="field-rating"
-            emptySymbol="fas fa-star star-empty"
-            fullSymbol="fas fa-star star-full"
-            fractions={2}
-            readonly={true}
-            initialRating={data.rating}
-          /></div> : ''
-    }
-  </div>
-}
-
-PostField.propTypes = {
-  data: PropTypes.object.isRequired,
-  className: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired
-}
 
 class Post extends Component {
-
-  render_eating() {
-    const {content: {food}} = this.props;
-    if (isEmpty(food)) return <div></div>;
-    return <PostField data={food} className='post-activity'>
-      <div>
-        Eating at - {
-        !isEmpty(food.id) ?
-          <a href={GOOGLE_LINK + food.id} target="_blank" rel="noopener noreferrer">{food.text}</a>
-          : food.text
-      }
-      </div>
-    </PostField>
-  }
-
-  redner_location() {
-    const {content: {location}} = this.props;
-    if (isEmpty(location)) return <div></div>;
-    return <PostField data={location} className='post-activity'>
-      <div>
-        Checked in at - {
-        !isEmpty(location.id) ?
-          <a href={GOOGLE_LINK + location.id} target="_blank" rel="noopener noreferrer">{location.text}</a>
-          : location.text
-      }
-      </div>
-    </PostField>
-  }
-
-  render_watching() {
-    const {content: {movie}} = this.props;
-    if (isEmpty(movie)) return <div></div>;
-    return <PostField data={movie} className='post-activity'>
-      <div>
-        { !isEmpty(movie.img) ?
-          <div className="activity-image">
-            <img src={movie.img} alt="Movie thumb"/>
-          </div> : ''
-        }
-        <div className={'text-center'}>
-          Watching - { !isEmpty(movie.id) ?
-          <a href={`${TMDB_LINK}/${movie.type}/${movie.id}`} target="_blank" rel="noopener noreferrer">{movie.text}</a>
-          : movie.text
-        }
-        </div>
-      </div>
-    </PostField>
-  }
-
-  render_listening() {
-    const {content: {music}} = this.props;
-    if (isEmpty(music)) return <div></div>;
-    return <PostField data={music} className='post-activity'>
-      <div>
-        { !isEmpty(music.img) ?
-          <div className="activity-image">
-            <img src={music.img} alt="Music thumb"/>
-          </div> : ''
-        }
-        <div className={'text-center'}>
-          Listening to - { !isEmpty(music.id) ?
-          <a href={music.url} target="_blank" rel="noopener noreferrer">{music.text}</a>
-          : music.text
-        }
-        </div>
-      </div>
-    </PostField>
-  }
 
   render() {
     const {content, user} = this.props;
@@ -137,10 +40,10 @@ class Post extends Component {
               }
           </section>
           <section className="post-body">
-            {this.redner_location()}
-            {this.render_watching()}
-            {this.render_listening()}
-            {this.render_eating()}
+            <PostField data={content.location} activity="Checked in at"/>
+            <PostField data={content.movie} activity="Watching"/>
+            <PostField data={content.music} activity="Listening to"/>
+            <PostField data={content.food} activity="Eating at"/>
             <DirectionProvider text={content.text}>
               <div className="post-text">{content.text}</div>
             </DirectionProvider>

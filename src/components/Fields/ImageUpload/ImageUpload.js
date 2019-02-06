@@ -1,10 +1,8 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import './imageUpload.scss';
-import {connect} from "react-redux";
-import {FORM_NAME} from "../NewPost";
 
-class ImageUpload extends React.Component {
+export default class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,10 +64,3 @@ class ImageUpload extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    form: state.form[FORM_NAME]
-  }
-}
-
-export default connect(mapStateToProps, null) (ImageUpload);
