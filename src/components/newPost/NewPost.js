@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import {Button, Form} from "reactstrap";
-import LocationField from "../Fields/Location/LocationField";
 import {Field, reduxForm, startSubmit, change, getFormSubmitErrors} from "redux-form";
 import './newPost.scss';
 import {connect} from "react-redux";
 import {addNewPost} from "../../actions/action_posts";
 import TextareaAutosize from "react-textarea-autosize";
-import ImageUpload from "../Fields/ImageUpload/ImageUpload";
-import MovieField from "../Fields/Movie/MovieField";
 import Loader from './loading.gif';
-import MusicField from "../Fields/Music/MusicField";
 import DirectionProvider from "../DirectionProvider";
 import {isEmpty} from "lodash";
-import FoodField from "../Fields/Food/FoodField";
-
+import {fields} from '../Fields/index';
 
 export const FORM_NAME = 'NEW_POST';
 
@@ -24,14 +19,6 @@ const TextWrapper = ({input, id, className, required, placeholder}) => {
     </DirectionProvider>
   )
 };
-
-const fields = [
-  {text: '🎥', component: MovieField, name: 'movie'},
-  {text: '🗺️', component: LocationField, name: 'location'},
-  {text: '🎧', component: MusicField, name: 'music'},
-  {text: '🍽️', component: FoodField, name: 'food'},
-  {text: '📷️', component: ImageUpload, name: 'images'},
-];
 
 class NewPostForm extends Component {
   constructor(props) {
@@ -55,7 +42,7 @@ class NewPostForm extends Component {
     return (
       <Form className="new-post-form" onSubmit={handleSubmit(addNewPost)}>
         <div className="field-buttons">
-          {fields.map((f, idx) => <Button outline key={idx} onClick={() => this.toggleField(f.name)}>{f.text}</Button>)}
+          {fields.map((f, idx) => <Button outline key={idx} onClick={() => this.toggleField(f.name)}>{f.icon}</Button>)}
         </div>
         {
           fields.map((f, idx) =>
@@ -63,8 +50,13 @@ class NewPostForm extends Component {
         }
         <Field component={TextWrapper} name="text" id="text" className="form-control text-field" placeholder="Write something"/>
         {
-          !pristine ? (<div className={'text-center'}>
+          !pristine ? (<div className={'text-center submit-section'}>
             <Button color="primary ossome-button" type="submit" disabled={pristine || submitting}>Submit</Button>
+            {
+              !isEmpty(submitErrors) ?
+                <div className="errors">{submitErrors.message}</div> :
+                ""
+            }
           </div>) : ''
         }
 
@@ -74,11 +66,7 @@ class NewPostForm extends Component {
           </div> :
           ""
         }
-        {
-          !isEmpty(submitErrors) ?
-            <div className="errors">{submitErrors.message}</div> :
-            ""
-        }
+
       </Form>
     )
   }

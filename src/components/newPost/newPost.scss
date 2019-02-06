@@ -7,8 +7,8 @@ $field-btn-size: 46px;
   padding-bottom: 5px;
   border-bottom: 1px dotted gainsboro;
 
-  button[type='submit'] {
-    margin-bottom: 15px;
+  .submit-section {
+    padding-bottom: 5px;
   }
 
   textarea:focus, input:focus {
@@ -47,7 +47,6 @@ $field-btn-size: 46px;
     text-align: center;
     color: red;
     font-size: 0.8rem;
-    padding-top: 10px;
   }
 
 }
