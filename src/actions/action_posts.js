@@ -46,7 +46,8 @@ export const addNewPost = (content) => {
   return (dispatch) => {
     let content_data = cloneDeep(content);
     let formData = new FormData();
-    content_data.images.forEach((im) => formData.append('images', im));
+    if (!isEmpty(content_data.images))
+      content_data.images.forEach((im) => formData.append('images', im));
     formData.append('post_type', 'post');
     delete content_data.images;
     formData.append('content', JSON.stringify(content_data));
