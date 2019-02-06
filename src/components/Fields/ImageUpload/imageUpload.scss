@@ -1,6 +1,6 @@
 .image-upload-wrapper {
   margin-bottom: 16px;
-  padding-top: 10px;
+  padding: 8px 0;
   background-color: #c8e8ff4f;
   border-radius: 15px;
 
@@ -24,13 +24,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 10px;
   }
 
   .thumb {
     display: inline-flex;
-    margin-bottom: 8px;
-    margin-right: 8px;
+    margin: 4px;
+
     width: 100px;
     height: 100px;
     padding: 4px;
