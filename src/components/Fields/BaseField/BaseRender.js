@@ -50,7 +50,7 @@ FieldText.propTypes = {
 
 export default function PostField(props) {
   const {data, activity} = props;
-  if (isEmpty(data) || isEmpty(data.text)) return <div></div>;
+  if (isEmpty(data) || isEmpty(data.text)) return '';
   return (
     <div className={props.className}>
       <FieldThumb img={data.img}/>
