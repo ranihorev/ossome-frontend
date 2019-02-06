@@ -20,10 +20,6 @@ class NewComment extends Component {
   componentWillReceiveProps(nextProps, nextContext) {
     const {post, posts: {lastAction}} = this.props;
     const newAction = nextProps.posts.lastAction;
-    console.log('here')
-    console.log(newAction.type === NEW_COMMENT)
-    console.log(newAction.post_id === post)
-    console.log(newAction.comment_id !== lastAction.comment_id)
     if (newAction.type === NEW_COMMENT && newAction.post_id === post && newAction.comment_id !== lastAction.comment_id) {
       console.log('yay');
       this.setState({text: '', showSubmit: false});
