@@ -40,9 +40,11 @@ class FilterPosts extends React.Component {
           {this.state.value} <i className="fas fa-caret-down"></i>
         </DropdownToggle>
         <DropdownMenu right>
-          {activityFields.map((f, idx) => <DropdownItem onClick={this.select} key={idx}>
-            <Link to={`/activity/${f.name}`}>{f.text}</Link>
-          </DropdownItem>
+          {activityFields.map((f, idx) => <Link to={`/activity/${f.name}`}>
+              <DropdownItem onClick={this.select} key={idx}>
+                {f.text}
+              </DropdownItem>
+            </Link>
           )}
 
         </DropdownMenu>
