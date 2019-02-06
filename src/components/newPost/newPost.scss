@@ -3,8 +3,12 @@
 $field-btn-size: 46px;
 
 .new-post-form {
+
+  padding-bottom: 5px;
+  border-bottom: 1px dotted gainsboro;
+
   button[type='submit'] {
-    margin-top: 20px;
+    margin-bottom: 15px;
   }
 
   textarea:focus, input:focus {

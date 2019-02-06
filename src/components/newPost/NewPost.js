@@ -30,6 +30,7 @@ const fields = [
   {text: '🗺️', component: LocationField, name: 'location'},
   {text: '🎧', component: MusicField, name: 'music'},
   {text: '🍽️', component: FoodField, name: 'food'},
+  {text: '📷️', component: ImageUpload, name: 'images'},
 ];
 
 class NewPostForm extends Component {
@@ -56,12 +57,17 @@ class NewPostForm extends Component {
         <div className="field-buttons">
           {fields.map((f, idx) => <Button outline key={idx} onClick={() => this.toggleField(f.name)}>{f.text}</Button>)}
         </div>
-        {fields.map((f, idx) => active[f.name] ? <Field component={f.component} name={f.name} key={idx}/> : '')}
+        {
+          fields.map((f, idx) =>
+            active[f.name] ? <Field component={f.component} name={f.name} key={idx} is_submitting={submitting}/> : '')
+        }
         <Field component={TextWrapper} name="text" id="text" className="form-control text-field" placeholder="Write something"/>
-        <Field component={ImageUpload} name="images" is_submitting={submitting}/>
-        <div className={'text-center'}>
-          <Button color="primary ossome-button" type="submit" disabled={pristine || submitting}>Submit</Button>
-        </div>
+        {
+          !pristine ? (<div className={'text-center'}>
+            <Button color="primary ossome-button" type="submit" disabled={pristine || submitting}>Submit</Button>
+          </div>) : ''
+        }
+
         { submitting ?
           <div className={'text-center'}>
             <img src={Loader} alt="loading" height="20px"/>
