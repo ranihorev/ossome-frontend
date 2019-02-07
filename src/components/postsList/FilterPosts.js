@@ -1,8 +1,9 @@
 import React from "react";
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from "reactstrap";
 import './FilterPosts.scss';
-import {Link} from "react-router-dom";
 import {activityFields} from "../Fields";
+import {withRouter} from "react-router";
+import queryString from 'query-string';
 
 class FilterPosts extends React.Component {
   constructor(props) {
@@ -20,11 +21,16 @@ class FilterPosts extends React.Component {
     });
   }
 
-  select = (event) => {
+  select = (text, name) => {
+    const { location: {pathname}, location: {search}, history} = this.props
+    let q = queryString.parse(search);
+    q.activity = name;
+    history.push({pathname: pathname, search: queryString.stringify(q)});
     this.setState({
       dropdownOpen: false,
-      value: event.target.innerText
+      value: text
     });
+
   }
 
   render() {
@@ -40,13 +46,11 @@ class FilterPosts extends React.Component {
           {this.state.value} <i className="fas fa-caret-down"></i>
         </DropdownToggle>
         <DropdownMenu right>
-          {activityFields.map((f, idx) => <Link to={`/activity/${f.name}`}>
-              <DropdownItem onClick={this.select} key={idx}>
-                {f.text}
-              </DropdownItem>
-            </Link>
+          {activityFields.map((f, idx) =>
+            <DropdownItem onClick={() => this.select(f.text, f.name)} key={idx}>
+              {f.text}
+            </DropdownItem>
           )}
-
         </DropdownMenu>
       </Dropdown>
     );

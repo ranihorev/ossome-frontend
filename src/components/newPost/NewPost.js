@@ -8,7 +8,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import Loader from './loading.gif';
 import DirectionProvider from "../DirectionProvider";
 import {isEmpty} from "lodash";
-import {fields} from '../Fields/index';
+import {activityFields, extraFields} from '../Fields/index';
 
 export const FORM_NAME = 'NEW_POST';
 
@@ -24,7 +24,7 @@ class NewPostForm extends Component {
   constructor(props) {
     super(props);
     let initActive = {};
-    fields.forEach((a) => initActive[a.name] = false);
+    activityFields.forEach((a) => initActive[a.name] = false);
     this.state = { active: initActive};
   }
 
@@ -42,13 +42,17 @@ class NewPostForm extends Component {
     return (
       <Form className="new-post-form" onSubmit={handleSubmit(addNewPost)}>
         <div className="field-buttons">
-          {fields.map((f, idx) => <Button outline key={idx} onClick={() => this.toggleField(f.name)}>{f.icon}</Button>)}
+          {activityFields.map((f, idx) => <Button outline key={idx} onClick={() => this.toggleField(f.name)}>{f.icon}</Button>)}
         </div>
         {
-          fields.map((f, idx) =>
+          activityFields.map((f, idx) =>
             active[f.name] ? <Field component={f.component} name={f.name} key={idx} is_submitting={submitting}/> : '')
         }
         <Field component={TextWrapper} name="text" id="text" className="form-control text-field" placeholder="Write something"/>
+        {
+          extraFields.map((f, idx) =>
+            <Field component={f.component} name={f.name} key={idx} is_submitting={submitting}/>)
+        }
         {
           !pristine ? (<div className={'text-center submit-section'}>
             <Button color="primary ossome-button" type="submit" disabled={pristine || submitting}>Submit</Button>

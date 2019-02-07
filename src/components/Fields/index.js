@@ -12,8 +12,8 @@ export const activityFields = [
   {icon: '🍽️', component: FoodField, name: 'food', text: 'Eating'},
 ];
 
-const otherFields = [
+export const extraFields = [
   {icon: '📷️', component: ImageUpload, name: 'images', text: 'Images'},
 ];
 
-export const fields = activityFields.concat(otherFields);
+export const fields = activityFields.concat(extraFields);

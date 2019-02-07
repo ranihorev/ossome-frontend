@@ -12,11 +12,15 @@ import {isEmpty, isEqual} from "lodash";
 class PostsList extends Component {
 
   componentDidMount() {
+    console.log('mount')
     this.props.fetchPosts(this.props.match.params);
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
+    console.log(nextProps.match.params);
+    console.log(this.props.match.params);
     if (!isEqual(nextProps.match.params, this.props.match.params)) {
+      console.log('test');
       this.props.fetchPosts(nextProps.match.params);
     }
   }

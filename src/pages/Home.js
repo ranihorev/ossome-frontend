@@ -7,6 +7,11 @@ import FilterPosts from "../components/postsList/FilterPosts";
 
 
 class Home extends Component {
+  
+  componentWillReceiveProps(nextProps, nextContext) {
+    console.log(nextProps.match.params);
+    console.log(this.props.match.params);
+  }
 
   render() {
     return (

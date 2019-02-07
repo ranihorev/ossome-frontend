@@ -29,7 +29,7 @@ class Post extends Component {
         <CardBody>
           <section className="post-heading d-flex justify-content-between">
               <div>
-                <Link to={`/user/${content.user._id}`} className="anchor-username media-heading">
+                <Link to={`/user/${content.user._id}/`} className="anchor-username media-heading">
                   {content.user.first_name} {content.user.last_name}
                 </Link>
                 <a href="#" className="anchor-time">{get_age(content.date_published)}</a>
