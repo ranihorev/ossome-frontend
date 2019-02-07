@@ -6,22 +6,23 @@ import PropTypes from 'prop-types';
 import {fetchPostsAction} from "../../actions/action_posts";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {isEmpty, isEqual} from "lodash";
-
+import {isEmpty} from "lodash";
+import queryString from 'query-string';
 
 class PostsList extends Component {
 
   componentDidMount() {
-    console.log('mount')
-    this.props.fetchPosts(this.props.match.params);
+    const {match, location} = this.props;
+    const newParams = {...match.params, ...queryString.parse(location.search)};
+    this.props.fetchPosts(newParams);
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    console.log(nextProps.match.params);
-    console.log(this.props.match.params);
-    if (!isEqual(nextProps.match.params, this.props.match.params)) {
-      console.log('test');
-      this.props.fetchPosts(nextProps.match.params);
+    const newParams = nextProps.match.params;
+    const newSearch = nextProps.location.search;
+    if (nextProps.location.pathname !== this.props.location.pathname || nextProps.location.search !== this.props.location.search) {
+      const allParams = {...newParams, ...queryString.parse(newSearch)};
+      this.props.fetchPosts(allParams);
     }
   }
 
