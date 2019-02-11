@@ -40,7 +40,7 @@ class NewComment extends Component {
   };
 
   handleKeyDown = (e) => {
-    if (e.keyCode == 13 && e.metaKey)
+    if (e.keyCode === 13 && e.metaKey)
       this.submit(e);
   }
 

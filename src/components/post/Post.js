@@ -32,7 +32,7 @@ class Post extends Component {
                 <Link to={`/user/${content.user._id}/`} className="anchor-username media-heading">
                   {content.user.first_name} {content.user.last_name}
                 </Link>
-                <a href="#" className="anchor-time">{get_age(content.date_published)}</a>
+                <span className="anchor-time"><Link to={`/post/${content._id}/`}>{get_age(content.date_published)}</Link></span>
               </div>
               {
                 (content.user._id === user.data.id) ?

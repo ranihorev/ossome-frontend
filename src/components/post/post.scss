@@ -38,9 +38,14 @@
     color:#ADB2BB;
     font-size: 0.9rem;
 
+    a {
+      color:#ADB2BB;
+    }
+
     &::before {
       content: "\00b7";
       padding: 0 5px;
+
     }
   }
 
