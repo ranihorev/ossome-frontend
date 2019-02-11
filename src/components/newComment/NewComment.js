@@ -21,7 +21,6 @@ class NewComment extends Component {
     const {post, posts: {lastAction}} = this.props;
     const newAction = nextProps.posts.lastAction;
     if (newAction.type === NEW_COMMENT && newAction.post_id === post && newAction.comment_id !== lastAction.comment_id) {
-      console.log('yay');
       this.setState({text: '', showSubmit: false});
     }
   }
@@ -39,6 +38,11 @@ class NewComment extends Component {
       [event.target.id]: event.target.value
     });
   };
+
+  handleKeyDown = (e) => {
+    if (e.keyCode == 13 && e.metaKey)
+      this.submit(e);
+  }
 
   toggleSubmit = (e) => {
     this.setState({showSubmit: !isEmpty(this.state.text) || e.type === 'focus'});
@@ -58,6 +62,7 @@ class NewComment extends Component {
             onChange={this.handleChange}
             onFocus={this.toggleSubmit}
             onBlur={this.toggleSubmit}
+            onKeyDown={this.handleKeyDown}
             value={text}
           />
         </DirectionProvider>
