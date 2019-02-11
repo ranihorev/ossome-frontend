@@ -31,18 +31,23 @@ class BaseNavbar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               {isEmpty(this.props.user.data) ?
-                <NavItem>
-                  <NavLink tag={Link} to={"/register"}>Register</NavLink>
-                </NavItem>
-                 :
-                <NavItem>
-                  <NavLink tag={Link} to={"/"} onClick={this.props.logout}>Logout</NavLink>
-                </NavItem>
-              }
-              {isEmpty(this.props.user.data) ?
-                <NavItem>
+                <React.Fragment>
+                  <NavItem>
+                    <NavLink tag={Link} to={"/register"}>Register</NavLink>
+                  </NavItem>
+                  <NavItem>
                   <NavLink tag={Link} to={"/login"}>Login</NavLink>
-                </NavItem> : ''
+                  </NavItem>
+                </React.Fragment>
+                 :
+                <React.Fragment>
+                  <NavItem>
+                    <NavLink tag={Link} to={"/"} onClick={this.props.logout}>Logout</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink tag={Link} to={"#"}>Hi, {this.props.user.data.first_name}</NavLink>
+                  </NavItem>
+                </React.Fragment>
               }
             </Nav>
           </Collapse>
