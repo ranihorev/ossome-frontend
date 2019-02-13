@@ -12,6 +12,7 @@ import NewComment from "../newComment/NewComment";
 import CommentsList from "./Comment";
 import DirectionProvider from "../DirectionProvider";
 import PostField from "../Fields/BaseField/BaseRender";
+import Linkify from "react-linkify";
 
 
 class Post extends Component {
@@ -45,7 +46,7 @@ class Post extends Component {
             <PostField data={content.music} activity="Listening to"/>
             <PostField data={content.food} activity="Eating at"/>
             <DirectionProvider text={content.text}>
-              <div className="post-text">{content.text}</div>
+              <div className="post-text"><Linkify>{content.text}</Linkify></div>
             </DirectionProvider>
             {images}
           </section>
