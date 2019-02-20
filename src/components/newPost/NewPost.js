@@ -51,13 +51,13 @@ class NewPostForm extends Component {
         <Field component={TextWrapper} name="text" id="text" className="form-control text-field" placeholder="Write something"/>
         {
           extraFields.map((f, idx) =>
-            <Field component={f.component} name={f.name} key={idx} is_submitting={submitting}/>)
+            <Field component={f.component} name={f.name} key={idx} is_submitting={submitting} submitErrors={submitErrors}/>)
         }
         {
           !pristine ? (<div className={'text-center submit-section'}>
             <Button color="primary ossome-button" type="submit" disabled={pristine || submitting}>Submit</Button>
             {
-              !isEmpty(submitErrors) ?
+              (!isEmpty(submitErrors) && !submitting) ?
                 <div className="errors">{submitErrors.message}</div> :
                 ""
             }

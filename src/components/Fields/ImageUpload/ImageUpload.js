@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import './imageUpload.scss';
+import {isEmpty} from "lodash";
 
 export default class ImageUpload extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ export default class ImageUpload extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if ((this.props.is_submitting) && (!nextProps.is_submitting))
+    if ((this.props.is_submitting) && (!nextProps.is_submitting) && isEmpty(nextProps.submitErrors))
       this.clear();
   }
 
